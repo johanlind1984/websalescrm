@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Spring MVC view layer: Thymeleaf vs. JSP</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<h2>Add Product</h2>
+
+<h1 th:text="'Product ' + ${productAdded.name} + ' with price: ' + ${productAdded.price} + 'has been added'"/>
+
+
+</body>
+
+</html>
