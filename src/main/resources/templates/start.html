@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Welcome!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<link href="../static/css/Layout.css" th:href="@{/css/style.css}" rel="stylesheet" />
+<h1 th:align="CENTER">Main view</h1>
+<h3>
+    <table style="width:100%">
+        <tr>            <th>
+            <form id = "mainView" th:action = "@{/}">
+                <input type="button" value="Main View"/>
+            </form>
+        </th>
+            <th>
+                <form id = "addCustomer" th:action = "@{/addproduct}">
+                    <input type="button" value="Add Customer"/>
+                </form>
+            </th>
+            <th>
+                <form id = "addProduct" th:action = "@{/addproduct}">
+                <input type="button" value="Add Product" class="btn btn-red" />
+            </form></th>
+        </tr>
+    </table>
+</h3>
+
+</body>
+
+</html>

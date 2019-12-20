@@ -11,7 +11,7 @@
 
 <h2>Add Product</h2>
 
-<form th:object="${productAdded}" th:action="@{/productConfirmed}" method="post">
+<form th:object="${productadded}" th:action="@{/productconfirmed}" method="post">
     <p>Name: <input type="text" th:field="*{name}"/></p>
     <p>Price: <input type="number" th:field="*{price}"/></p>
     <p><input type="submit" value="Submit"/></p>

@@ -12,13 +12,13 @@ public class Product {
     @Column(name="product_id")
     private int id;
 
-    @Column(name="name")
+    @Column(name="product_name")
     private String name;
 
-    @Column(name="price")
+    @Column(name="product_price")
     private double price;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "order_product",
             joinColumns = { @JoinColumn(name = "product_id") },
@@ -58,12 +58,4 @@ public class Product {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
-    }
 }
