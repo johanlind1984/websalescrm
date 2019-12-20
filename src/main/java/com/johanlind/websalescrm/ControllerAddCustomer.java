@@ -12,39 +12,43 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 @EnableAutoConfiguration
-public class MainViewController {
+public class ControllerAddCustomer {
 
     private SessionFactory sessionFactory;
 
-
-    @RequestMapping("/")
+    @RequestMapping("/addcustomer")
     public String addProduct(Model theModel) {
+        theModel.addAttribute("customeradded", new Customer());
+        return "add-customer";
+    }
 
+    @RequestMapping("/customerconfirmed")
+    public String confirmProduct(@ModelAttribute("customeradded") Customer customer) {
+        saveCustomerToDatabase(customer);
+        return "confirmation-customer-added";
+    }
+
+    private void saveCustomerToDatabase(Customer customer) {
         sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Customer.class)
-                .addAnnotatedClass(Order.class)
                 .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(Order.class)
+                .addAnnotatedClass(Customer.class)
                 .buildSessionFactory();
 
         Session session = sessionFactory.getCurrentSession();
 
         try {
             session.beginTransaction();
-            List<Customer> customerList = (List<Customer>) session.createCriteria(Customer.class).list();
-            theModel.addAttribute("customerlist", customerList);
-
-        }catch (Exception e) {
+            session.save(customer);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            sessionFactory.close();
+            session.close();
         }
-
-        return "start";
     }
 }

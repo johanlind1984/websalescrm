@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Spring MVC view layer: Thymeleaf vs. JSP</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<h2>Add Product</h2>
+
+<form th:object="${customeradded}" th:action="@{/customerconfirmed}" method="post">
+    <p>Customer Name: <input type="text" th:field="*{name}"/></p>
+    <p>Phonenumber: <input type="text" th:field="*{phoneNumber}"/></p>
+    <p>Next date of contact: <input type="datetime-local" th:field="*{nextContactDate}"/></p>
+    <p>Comments: <input type="text" th:field="*{comments}"/></p>
+    <p><input type="submit" value="Submit"/></p>
+
+
+</form>
+
+</body>
+
+</html>
