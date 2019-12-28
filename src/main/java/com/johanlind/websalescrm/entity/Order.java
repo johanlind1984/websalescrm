@@ -17,8 +17,8 @@ public class Order {
     @JoinColumn(name="fk_customer_id")
     Customer customer;
 
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(
             name = "order_product",
             joinColumns = { @JoinColumn(name = "order_id") },
@@ -71,9 +71,6 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + orderId +
-                ", productsOrdered=" + productsOrdered +
-                '}';
+        return "Order Summary: " + productsOrdered;
     }
 }

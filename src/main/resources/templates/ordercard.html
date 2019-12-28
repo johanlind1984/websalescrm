@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Confirmation Product added</title>
+    <title>Order Card</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -44,12 +44,27 @@
 </table>
 <br><br><br>
 
-<h2>Add Product</h2>
+<h1 align="center">Order Card</h1>
+<br><br><br>
+<h1 align="center" th:text="'Order ID: ' + ${order.id}"></h1>
+<h2 align="center" th:text="'Customer ID: ' + ${order.customer?.customerId}"></h2>
 
-<h1 th:text="'Added Product: ' + ${productadded.name} + ', ' + ${productadded.price}"/>
+<table style="width:75%" align="center">
+    <th>Product Id</th>
+    <th>Product name</th>
+    <th>Price</th>
+    <tr th:each="product: ${order.productsOrdered}">
+        <td align="center" th:text="${product.id}"/>
+        <td align="center" th:text="${product.name}"/>
+        <td align="center" th:text="${product.price}"/>
+    </tr>
+</table>
+
+<br>
 <form id = "back" th:action = "@{/}" method="post">
     <input type="submit" value="Back to Main View"/>
 </form>
+
 
 </body>
 

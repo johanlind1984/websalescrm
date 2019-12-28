@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Confirmation Product added</title>
+    <title>Order View</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -27,7 +27,7 @@
         </th>
         <th>
             <form id = "orderListView" th:action = "@{/orderlist}" method="post">
-                <input type="submit" value="List of Orders - Not implemented"/>
+                <input type="submit" value="List of Orders"/>
             </form>
         </th>
         <th>
@@ -43,14 +43,23 @@
     </tr>
 </table>
 <br><br><br>
-
-<h2>Add Product</h2>
-
-<h1 th:text="'Added Product: ' + ${productadded.name} + ', ' + ${productadded.price}"/>
-<form id = "back" th:action = "@{/}" method="post">
-    <input type="submit" value="Back to Main View"/>
-</form>
-
+<h1 th:align="center">List of Orders</h1>
+<br><br><br>
+<table style="width:75%" align="center">
+    <th>Order ID </th>
+    <th>Customer ID</th>
+    <th>Order Summary</th>
+    <th>Details</th>
+    <tr th:each="order: ${orderlist}">
+        <td align="center" th:text="${order.orderId}"/>
+        <td align="center" th:text="${order.customer?.customerId}"/>
+        <td align="center" th:text="${order}"/>
+        <td align="center">
+            <a th:href="@{/ordercard(id=${order.orderId})}"/>
+            <span>Order Details</span>
+        </td>
+    </tr>
+</table>
 </body>
 
 </html>

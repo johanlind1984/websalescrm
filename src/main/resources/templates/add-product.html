@@ -3,18 +3,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Spring MVC view layer: Thymeleaf vs. JSP</title>
+    <title>Add product</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
+<table style="width:50%" align="center">
+    <tr>
+        <th>
+            <form id = "mainView" th:action = "@{/}" method="post">
+                <input type="submit" value="Main View"/>
+            </form>
+        </th>
+        <th>
+            <form id = "customerListView" th:action = "@{/customerlist}" method="post">
+                <input type="submit" value="List of Customers"/>
+            </form>
+        </th>
+        <th>
+            <form id = "addCustomer" th:action = "@{/addcustomer}" method="post">
+                <input type="submit" value="Add Customer"/>
+            </form>
+        </th>
+        <th>
+            <form id = "orderListView" th:action = "@{/orderlist}" method="post">
+                <input type="submit" value="List of Orders - Not implemented"/>
+            </form>
+        </th>
+        <th>
+            <form id = "productListView" th:action = "@{/productlist}" method="post">
+                <input type="submit" value="List of Products" />
+            </form>
+        </th>
+        <th>
+            <form id = "addProduct" th:action = "@{/addproduct}" method="post">
+                <input type="submit" value="Add Product" />
+            </form>
+        </th>
+    </tr>
+</table>
+<br><br><br>
 
-<h2>Add Product</h2>
+<h2 align="center">Add Product</h2>
 
 <form th:object="${productadded}" th:action="@{/productconfirmed}" method="post">
-    <p>Name: <input type="text" th:field="*{name}"/></p>
-    <p>Price: <input type="number" th:field="*{price}"/></p>
-    <p><input type="submit" value="Submit"/></p>
+    <p align="center">Name: <input type="text" th:field="*{name}"/></p>
+    <p align="center">Price: <input type="number" th:field="*{price}"/></p>
+    <p align="center"><input type="submit" value="Submit"/></p>
 
 
 </form>

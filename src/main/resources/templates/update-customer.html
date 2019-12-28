@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Confirmation Product added</title>
+    <title>Update Customer</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -44,11 +44,15 @@
 </table>
 <br><br><br>
 
-<h2>Add Product</h2>
+<h2 align="center">Update Customer</h2>
 
-<h1 th:text="'Added Product: ' + ${productadded.name} + ', ' + ${productadded.price}"/>
-<form id = "back" th:action = "@{/}" method="post">
-    <input type="submit" value="Back to Main View"/>
+<form th:object="${customer}" th:action="@{/updatecustomer}" method="post">
+    <input type="hidden" th:field="*{customerId}" th:value="${customer.customerId}"/>
+    <p align="center">Customer Name: <input type="text" th:field="*{name}" th:value="${customer.name}"/></p>
+    <p align="center">Phonenumber: <input type="text" th:field="*{phoneNumber}" th:value="${customer.phoneNumber}"/></p>
+<!--    <p align="center">Next date of contact: <input type="datetime-local" th:field="*{nextContactDate}" th:value="${customer.nextContactDate}"/></p>-->
+    <p align="center">Comments: <input type="text" th:field="*{comments}" th:value="${customer.comments}"/></p>
+    <p align="center"><input type="submit" value="Save Changes"/></p>
 </form>
 
 </body>

@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Confirmation Product added</title>
+    <title>Customer Card</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -44,12 +44,41 @@
 </table>
 <br><br><br>
 
-<h2>Add Product</h2>
+<h1 align="center">Customer Card</h1>
+<br><br><br>
+<h1 align="center" th:text="'Name: ' + ${customer.name}"></h1>
+<h2 align="center" th:text="'Customer ID: ' + ${customer.customerId}"></h2>
+<h2 align="center" th:text="'Phone number: ' + ${customer.phoneNumber}"></h2>
+<h2 align="center" th:text="'Next date to call: ' + ${customer.nextContactDate}"></h2>
+<h2 align="center" th:text="'Comments: ' + ${customer.comments}"></h2>
+<br>
+<h2 align="center" th:text="'Orders:'"></h2>
 
-<h1 th:text="'Added Product: ' + ${productadded.name} + ', ' + ${productadded.price}"/>
+<table style="width:75%" align="center">
+    <th>OrdersID </th>
+    <th>Order Summary</th>
+    <th>Details</th>
+    <tr th:each="order: ${customer.orders}">
+        <td align="center" th:text="${order.orderId}"/>
+        <td align="center" th:text="${order}"/>
+        <td align="center">
+            <a th:href="@{/ordercard(id=${order.orderId})}"/>
+            <span>Order Details</span>
+        </td>
+    </tr>
+</table>
+<!--<form id = "createorder" th:action = "@{/ordercard(id=${order.orderId})}" method="post">-->
+<!--    <input align="center" type="submit" value="Create Order"/>-->
+<!--</form>-->
+
+<br>
+
+<span>Create Order</span>
+<br>
 <form id = "back" th:action = "@{/}" method="post">
     <input type="submit" value="Back to Main View"/>
 </form>
+
 
 </body>
 

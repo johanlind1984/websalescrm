@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Confirmation Product added</title>
+    <title>Update product</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -44,11 +44,13 @@
 </table>
 <br><br><br>
 
-<h2>Add Product</h2>
+<h2 align="center">Update Product</h2>
 
-<h1 th:text="'Added Product: ' + ${productadded.name} + ', ' + ${productadded.price}"/>
-<form id = "back" th:action = "@{/}" method="post">
-    <input type="submit" value="Back to Main View"/>
+<form th:object="${product}" th:action="@{/updateproduct}" method="post">
+    <input type="hidden" th:field="*{id}" th:value="${product.id}"/>
+    <p align="center">Name: <input type="text" th:field="*{name}" th:value="${product.name}"/></p>
+    <p align="center">Price: <input type="number" th:field="*{price}" th:value="${product.price}"/></p>
+    <p align="center"><input type="submit" value="Save Changes"/></p>
 </form>
 
 </body>
