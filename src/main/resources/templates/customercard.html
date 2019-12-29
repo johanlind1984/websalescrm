@@ -27,7 +27,7 @@
         </th>
         <th>
             <form id = "orderListView" th:action = "@{/orderlist}" method="post">
-                <input type="submit" value="List of Orders - Not implemented"/>
+                <input type="submit" value="List of Orders"/>
             </form>
         </th>
         <th>
@@ -53,6 +53,12 @@
 <h2 align="center" th:text="'Comments: ' + ${customer.comments}"></h2>
 <br>
 <h2 align="center" th:text="'Orders:'"></h2>
+<br><br>
+<div align="center">
+<form id = "createorder" th:action = "@{/addorderform(customer=${customer.customerId})}" method="post">
+    <input align="center" type="submit" value="Create Order"/>
+</form>
+</div>
 
 <table style="width:75%" align="center">
     <th>OrdersID </th>
@@ -67,19 +73,6 @@
         </td>
     </tr>
 </table>
-<!--<form id = "createorder" th:action = "@{/ordercard(id=${order.orderId})}" method="post">-->
-<!--    <input align="center" type="submit" value="Create Order"/>-->
-<!--</form>-->
-
-<br>
-
-<span>Create Order</span>
-<br>
-<form id = "back" th:action = "@{/}" method="post">
-    <input type="submit" value="Back to Main View"/>
-</form>
-
-
 </body>
 
 </html>

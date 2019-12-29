@@ -43,12 +43,12 @@
     </tr>
 </table>
 <br><br><br>
-<h2 align="center">Add Product</h2>
+<h2 align="center">Add Customer</h2>
 
 <form th:object="${customeradded}" th:action="@{/customerconfirmed}" method="post">
     <p align="center">Customer Name: <input type="text" th:field="*{name}"/></p>
     <p align="center">Phonenumber: <input type="text" th:field="*{phoneNumber}"/></p>
-    <p align="center">Next date of contact: <input type="datetime-local" th:field="*{nextContactDate}"/></p>
+    <p align="center">Next date of contact: <input type="date" th:field="*{nextContactDate}"/></p>
     <p align="center">Comments: <input type="text" th:field="*{comments}"/></p>
     <p align="center"><input type="submit" value="Submit"/></p>
 </form>

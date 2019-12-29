@@ -167,7 +167,7 @@ public class ServiceDataBase {
 
         try {
             session.beginTransaction();
-            session.save(customer);
+            session.saveOrUpdate(customer);
             session.getTransaction().commit();
 
         } catch (Exception e) {

@@ -44,14 +44,15 @@
 </table>
 <br><br><br>
 
-<h2>Add Product</h2>
+<h2>Customer Added</h2>
 
-<h1 th:text="'Added ' + ${customeradded.name} + ', ' + ${customeradded.phoneNumber} + ', ' + ${customeradded.comments} "/>
+<h1 align="center" th:text="'Added ' + ${customeradded.name} + ', ' + ${customeradded.phoneNumber} + ', ' + ${customeradded.comments} "/>
 <br>
+<div align="center">
 <form id = "back" th:action = "@{/}" method="post">
     <input type="submit" value="Back to Main View"/>
 </form>
-
+</div>
 
 </body>
 

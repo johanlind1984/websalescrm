@@ -33,7 +33,6 @@ public class Order {
         if(productsOrdered == null) {
             productsOrdered = new ArrayList<Product>();
         }
-
         productsOrdered.add(product);
     }
 
