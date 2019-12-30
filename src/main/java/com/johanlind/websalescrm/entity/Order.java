@@ -70,6 +70,11 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order Summary: " + productsOrdered;
+
+        if (productsOrdered == null) {
+            return "There's no orders";
+        } else {
+            return "Order Summary: " + productsOrdered;
+        }
     }
 }

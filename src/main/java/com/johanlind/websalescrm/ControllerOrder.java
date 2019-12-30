@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @EnableAutoConfiguration
@@ -46,8 +48,14 @@ public class ControllerOrder {
     @RequestMapping("/orderlist")
     public String orderView(Model theModel) {
         List<Order> orderList = serviceDataBase.getOrderList();
+        orderList = orderList.stream().distinct().collect(Collectors.toList());
         theModel.addAttribute("orderlist", orderList);
-
+        return "order-view";
+    }
+    @RequestMapping(value="/deleteorder", method = RequestMethod.GET)
+    public String deleteOrder(@RequestParam("id") int orderId,  Model theModel) {
+        serviceDataBase.deleteOrder(orderId);
+        theModel.addAttribute("orderlist", serviceDataBase.getOrderList());
         return "order-view";
     }
     @RequestMapping(value="/addtoorder", method = RequestMethod.POST)
@@ -80,7 +88,8 @@ public class ControllerOrder {
         tempCustomer = serviceDataBase.getCustomer(CustomerId);
         tempCustomer.addOrder(tempOrder);
         serviceDataBase.saveCustomerToDatabase(tempCustomer);
-        theModel.addAttribute("orderlist", serviceDataBase.getOrderList());
+        ArrayList<Order> orderList = (ArrayList<Order>) serviceDataBase.getOrderList().stream().distinct().collect(Collectors.toList());
+        theModel.addAttribute("orderlist", orderList);
         return "order-view";
     }
 }

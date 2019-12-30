@@ -18,6 +18,7 @@ public class MainViewController {
     @RequestMapping("/")
     public String getCustomerListForMainView(Model theModel) {
         List<Customer> customerList = dataContainer.getCustomerList();
+
         theModel.addAttribute("customerlist", customerList);
         return "start";
     }

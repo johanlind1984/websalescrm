@@ -50,6 +50,7 @@
     <th>Customer ID</th>
     <th>Order Summary</th>
     <th>Details</th>
+    <th>Action</th>
     <tr th:each="order: ${orderlist}">
         <td align="center" th:text="${order.orderId}"/>
         <td align="center" th:text="${order.customer?.customerId}"/>
@@ -57,6 +58,10 @@
         <td align="center">
             <a th:href="@{/ordercard(id=${order.orderId})}"/>
             <span>Order Details</span>
+        </td>
+        <td align="center">
+            <a th:href="@{/deleteorder(id=${order.orderId})}"/>
+            <span>Delete Order</span>
         </td>
     </tr>
 </table>

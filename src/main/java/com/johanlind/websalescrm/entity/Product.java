@@ -18,8 +18,7 @@ public class Product {
     @Column(name="product_price")
     private double price;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "order_product",
             joinColumns = { @JoinColumn(name = "product_id") },

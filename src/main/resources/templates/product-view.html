@@ -27,7 +27,7 @@
         </th>
         <th>
             <form id = "orderListView" th:action = "@{/orderlist}" method="post">
-                <input type="submit" value="List of Orders - Not implemented"/>
+                <input type="submit" value="List of Orders"/>
             </form>
         </th>
         <th>
@@ -49,19 +49,19 @@
         <th>Product ID</th>
         <th>Product Name</th>
         <th>Price</th>
-        <th>Action</th>
+<!--        <th>Action</th>-->
         <tr th:each="product: ${productlist}">
             <td align="center" th:text="${product.id}"/>
             <td align="center" th:text="${product.name}"/>
             <td align="center" th:text="${product.price}" />
-            <td align="center">
-                <a th:href="@{/deleteproduct(id=${product.id})}">
-                    <span>Delete / </span>
-                </a>
-                <a th:href="@{/updateproductform(id=${product.id})}">
-                    <span>Update</span>
-                </a>
-            </td>
+<!--            <td align="center">-->
+<!--                <a th:href="@{/deleteproduct(id=${product.id})}">-->
+<!--                    <span>Delete / </span>-->
+<!--                </a>-->
+<!--                <a th:href="@{/updateproductform(id=${product.id})}">-->
+<!--                    <span>Update</span>-->
+<!--                </a>-->
+<!--            </td>-->
         </tr>
     </table>
 
