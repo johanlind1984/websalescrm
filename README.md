@@ -7,8 +7,8 @@ Every customer have a customer card where you can create a order for the custome
 click uppdate and change the date.
 
 This is a very basic sales CRM, theres a lot of improvements that can be made. However, the purpose of this project was to learn Spring,
-Spring Boot, Tymeleaf and Hibernate NOT to make the best salesCRM in the world. But i'm sure i will come back and update the project to
-to learn more.
+Spring Boot, Tymeleaf and Hibernate NOT to make a competitive salesCRM. But i'm sure i will come back and update the project to
+learn more.
 
 Requirements:
 Maven
