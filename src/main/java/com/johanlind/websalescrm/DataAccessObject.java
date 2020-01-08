@@ -6,23 +6,22 @@ import com.johanlind.websalescrm.entity.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ServiceDataBase {
+public class DataAccessObject {
 
     private SessionFactory sessionFactory;
     private Session session;
+
     List<Customer> customerList;
     List<Product> productList;
     List<Order>  orderList;
 
-    public ServiceDataBase() {
+    public DataAccessObject() {
         sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Customer.class)
@@ -41,6 +40,23 @@ public class ServiceDataBase {
         try {
             session.beginTransaction();
             customerList = (List<Customer>) session.createCriteria(Customer.class).list();
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return customerList;
+    }
+
+    public List<Customer> getCustomerListMainView() {
+        session = sessionFactory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+            String queryDateAsc =  "FROM Customer WHERE next_contact <= CURDATE() order by next_contact ASC";
+            customerList = (List<Customer>) session.createQuery(queryDateAsc).list();
 
         }catch (Exception e) {
             e.printStackTrace();

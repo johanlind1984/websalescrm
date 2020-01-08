@@ -1,6 +1,5 @@
 package com.johanlind.websalescrm;
 
-import com.johanlind.websalescrm.entity.Customer;
 import com.johanlind.websalescrm.entity.Product;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,7 @@ import java.util.List;
 @EnableAutoConfiguration
 public class ControllerProduct {
 
-    private ServiceDataBase serviceDataBase = new ServiceDataBase();
+    private DataAccessObject DataAccessObject = new DataAccessObject();
 
     @RequestMapping("/addproduct")
     public String addProduct(Model theModel) {
@@ -26,28 +25,28 @@ public class ControllerProduct {
 
     @RequestMapping("/productconfirmed")
     public String confirmProduct(@ModelAttribute("productadded") Product product) {
-        serviceDataBase.saveProductToDatabase(product);
+        DataAccessObject.saveProductToDatabase(product);
         return "confirmation-product-added";
     }
 
     @RequestMapping("/productlist")
     public String listProducts(Model theModel) {
-        List<Product> productList = serviceDataBase.getProductList();
+        List<Product> productList = DataAccessObject.getProductList();
         theModel.addAttribute("productlist", productList);
         return "product-view";
     }
 
     @RequestMapping(value="/deleteproduct", method = RequestMethod.GET)
     public String deleteProduct(@RequestParam("id") int productId, Model theModel) {
-        serviceDataBase.deleteProduct(productId);
-        List<Product> productList = serviceDataBase.getProductList();
+        DataAccessObject.deleteProduct(productId);
+        List<Product> productList = DataAccessObject.getProductList();
         theModel.addAttribute("productlist", productList);
         return "product-view";
     }
 
     @RequestMapping(value="/updateproductform", method = RequestMethod.GET)
     public String updateProductForm(@RequestParam("id") int productId, Model theModel) {
-        Product product = serviceDataBase.getProduct(productId);
+        Product product = DataAccessObject.getProduct(productId);
         theModel.addAttribute("product", product);
         return "update-product";
     }
@@ -55,8 +54,8 @@ public class ControllerProduct {
 
     @RequestMapping(value="/updateproduct")
     public String updateProduct(@ModelAttribute("product") Product product, Model theModel) {
-        serviceDataBase.updateProduct(product);
-        List<Product> productList = serviceDataBase.getProductList();
+        DataAccessObject.updateProduct(product);
+        List<Product> productList = DataAccessObject.getProductList();
         theModel.addAttribute("productlist", productList);
         return "product-view";
     }

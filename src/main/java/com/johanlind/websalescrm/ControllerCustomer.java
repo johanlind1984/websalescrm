@@ -15,7 +15,7 @@ import java.util.List;
 @EnableAutoConfiguration
 public class ControllerCustomer {
 
-    private ServiceDataBase serviceDataBase = new ServiceDataBase();
+    private DataAccessObject DataAccessObject = new DataAccessObject();
 
     @RequestMapping("/addcustomer")
     public String addCustomer(Model theModel) {
@@ -25,15 +25,15 @@ public class ControllerCustomer {
 
     @RequestMapping(value="/deletecustomer", method = RequestMethod.GET)
     public String deleteCustomer(@RequestParam("id") int customerId, Model theModel) {
-        serviceDataBase.deleteCustomer(customerId);
-        List<Customer> customerList = serviceDataBase.getCustomerList();
+        DataAccessObject.deleteCustomer(customerId);
+        List<Customer> customerList = DataAccessObject.getCustomerList();
         theModel.addAttribute("customerlist", customerList);
         return "customer-view";
     }
 
     @RequestMapping(value="/updatecustomerform", method = RequestMethod.GET)
     public String updateCustomerForm(@RequestParam("id") int customerId, Model theModel) {
-        Customer customer = serviceDataBase.getCustomer(customerId);
+        Customer customer = DataAccessObject.getCustomer(customerId);
         theModel.addAttribute("customer", customer);
         return "update-customer";
     }
@@ -41,15 +41,15 @@ public class ControllerCustomer {
 
     @RequestMapping(value="/updatecustomer")
     public String updateCustomer(@ModelAttribute("customer") Customer customer, Model theModel) {
-        serviceDataBase.updateCustomer(customer);
-        List<Customer> customerList = serviceDataBase.getCustomerList();
+        DataAccessObject.updateCustomer(customer);
+        List<Customer> customerList = DataAccessObject.getCustomerList();
         theModel.addAttribute("customerlist", customerList);
         return "customer-view";
     }
 
     @RequestMapping("/customerconfirmed")
     public String confirmCustomer(@ModelAttribute("customeradded") Customer customer) {
-        serviceDataBase.saveCustomerToDatabase(customer);
+        DataAccessObject.saveCustomerToDatabase(customer);
         return "confirmation-customer-added";
     }
 
@@ -57,14 +57,14 @@ public class ControllerCustomer {
     public String customerCard(@RequestParam("id") int customerId, Model theModel) {
         // Get customer with ID as in paramater
 
-        Customer customer = serviceDataBase.getCustomer(customerId);
+        Customer customer = DataAccessObject.getCustomer(customerId);
         theModel.addAttribute("customer", customer);
         return "customercard";
     }
 
     @RequestMapping("/customerlist")
     public String customerView(Model theModel) {
-        List<Customer> customerList = serviceDataBase.getCustomerList();
+        List<Customer> customerList = DataAccessObject.getCustomerList();
         theModel.addAttribute("customerlist", customerList);
 
         return "customer-view";

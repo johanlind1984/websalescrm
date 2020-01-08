@@ -21,11 +21,11 @@
         </property>
 
         <property name = "hibernate.connection.username">
-            hbstudent
+            SERNAMEHERE
         </property>
 
         <property name = "hibernate.connection.password">
-            hbstudent
+            PASSWORDHERE
         </property>
 
         <!-- List of XML mapping files -->
