@@ -1,5 +1,7 @@
 package com.johanlind.websalescrm.entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Order {
     @Column(name="order_id")
     private int orderId;
 
+    @Autowired
     @ManyToOne
     @JoinColumn(name="fk_customer_id")
     Customer customer;
@@ -24,6 +27,8 @@ public class Order {
             joinColumns = { @JoinColumn(name = "order_id") },
             inverseJoinColumns = { @JoinColumn(name = "product_id") }
     )
+
+    @Autowired
     private List<Product> productsOrdered;
 
     public Order() {

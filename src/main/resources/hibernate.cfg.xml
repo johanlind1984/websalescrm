@@ -21,13 +21,14 @@
         </property>
 
         <property name = "hibernate.connection.username">
-            SERNAMEHERE
+            hbstudent
         </property>
 
         <property name = "hibernate.connection.password">
-            PASSWORDHERE
+            hbstudent
         </property>
 
+        <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- List of XML mapping files -->
 
     </session-factory>

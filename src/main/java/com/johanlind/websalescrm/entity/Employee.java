@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// Class not used at the moment, should be used in future for use of multiple useraccounts in case there is need for
+// more than one salesrep.
+
 @Entity
 @Table(name="employee")
 public class Employee {

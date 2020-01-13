@@ -1,5 +1,7 @@
 package com.johanlind.websalescrm.entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class Product {
     @Column(name="product_price")
     private double price;
 
+    @Autowired
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "order_product",

@@ -6,20 +6,23 @@ import com.johanlind.websalescrm.entity.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class DataAccessObject {
 
+    @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
     private Session session;
-
-    List<Customer> customerList;
-    List<Product> productList;
-    List<Order>  orderList;
+    @Autowired
+    private List<Customer> customerList;
+    @Autowired
+    private List<Product> productList;
+    @Autowired
+    private List<Order>  orderList;
 
     public DataAccessObject() {
         sessionFactory = new Configuration()
@@ -69,7 +72,6 @@ public class DataAccessObject {
 
     public Customer getCustomer(int customerId) {
         session = sessionFactory.getCurrentSession();
-
         Customer tempCustomer = new Customer();
 
         try {
@@ -123,9 +125,7 @@ public class DataAccessObject {
     }
 
     public Product getProduct(int productId) {
-
         session = sessionFactory.getCurrentSession();
-
         Product tempProduct = new Product();
 
         try {
@@ -159,9 +159,7 @@ public class DataAccessObject {
     }
 
     public Order getOrder(int orderId) {
-
         session = sessionFactory.getCurrentSession();
-
         Order tempOrder = new Order();
 
         try {
