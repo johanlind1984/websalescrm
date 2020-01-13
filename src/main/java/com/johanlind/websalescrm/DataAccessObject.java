@@ -7,16 +7,17 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class DataAccessObject {
 
-    @Autowired
     private SessionFactory sessionFactory;
-    @Autowired
     private Session session;
+
     @Autowired
     private List<Customer> customerList;
     @Autowired
