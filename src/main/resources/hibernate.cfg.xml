@@ -21,11 +21,11 @@
         </property>
 
         <property name = "hibernate.connection.username">
-            hbstudent
+
         </property>
 
         <property name = "hibernate.connection.password">
-            hbstudent
+            
         </property>
 
         <property name="hibernate.hbm2ddl.auto">update</property>
