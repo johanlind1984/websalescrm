@@ -23,7 +23,6 @@ CREATE DATABASE `sales-crm`;
 
 EMPLOYEE TABLE
 
-TABLE
 CREATE TABLE IF NOT EXISTS employee (
 	id INTEGER AUTO_INCREMENT NOT NULL,
 	first_name VARCHAR(50) NOT NULL,
@@ -32,7 +31,8 @@ CREATE TABLE IF NOT EXISTS employee (
    PRIMARY KEY(id)
 );
 
-ORDER_ID
+ORDER_ID TABLE
+
 CREATE TABLE `order_id` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_customer_id` int(11) DEFAULT NULL,
@@ -41,7 +41,8 @@ CREATE TABLE `order_id` (
   CONSTRAINT `order_id_ibfk_1` FOREIGN KEY (`fk_customer_id`) REFERENCES `customer` (`customer_id`)
 );
 
-PRODUCT
+PRODUCT TABLE
+
 CREATE TABLE `product` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -52,6 +53,7 @@ CREATE TABLE `product` (
 
 
 ORDER_PRODUCT
+
 CREATE TABLE `order_product` (
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -63,6 +65,7 @@ CREATE TABLE `order_product` (
 
 
 CUSTOMER
+
 CREATE TABLE `customer` (
   `customer_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
