@@ -1,6 +1,7 @@
 package com.johanlind.websalescrm;
 
 import com.johanlind.websalescrm.entity.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import java.util.List;
 @EnableAutoConfiguration
 public class ControllerCustomer {
 
+    @Autowired
     private DataAccessObject DataAccessObject = new DataAccessObject();
 
     @RequestMapping("/addcustomer")
