@@ -19,18 +19,6 @@ MySQL create database and tables:
 DATABASE
 CREATE DATABASE `sales-crm`;
 
-
-
-EMPLOYEE TABLE
-
-CREATE TABLE IF NOT EXISTS employee (
-	id INTEGER AUTO_INCREMENT NOT NULL,
-	first_name VARCHAR(50) NOT NULL,
-	sales INTEGER,
-	orders INTEGER,
-   PRIMARY KEY(id)
-);
-
 ORDER_ID TABLE
 
 CREATE TABLE `order_id` (
