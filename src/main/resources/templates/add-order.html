@@ -73,7 +73,7 @@
 <table align="center">
     <th>Product Name</th>
     <th>Product Price</th>
-    <tr th:each="product : ${order.productsOrdered}">
+    <tr th:each="product : ${shoppingcart.productList}">
         <td align="center" th:text="${product.name}"></td>
         <td align="center" th:text="${product.price}"></td>
     </tr>

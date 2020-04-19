@@ -1,5 +1,6 @@
 package com.johanlind.websalescrm;
 
+import com.johanlind.websalescrm.Repository.RepositoryProduct;
 import com.johanlind.websalescrm.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ControllerProduct {
 
     @Autowired
-    private DataAccessObject DataAccessObject = new DataAccessObject();
+    private RepositoryProduct repositoryProduct;
 
     @RequestMapping("/addproduct")
     public String addProduct(Model theModel) {
@@ -27,28 +28,28 @@ public class ControllerProduct {
 
     @RequestMapping("/productconfirmed")
     public String confirmProduct(@ModelAttribute("productadded") Product product) {
-        DataAccessObject.saveProductToDatabase(product);
+        repositoryProduct.save(product);
         return "confirmation-product-added";
     }
 
     @RequestMapping("/productlist")
     public String listProducts(Model theModel) {
-        List<Product> productList = DataAccessObject.getProductList();
+        List<Product> productList = repositoryProduct.findAll();
         theModel.addAttribute("productlist", productList);
         return "product-view";
     }
 
     @RequestMapping(value="/deleteproduct", method = RequestMethod.GET)
-    public String deleteProduct(@RequestParam("id") int productId, Model theModel) {
-        DataAccessObject.deleteProduct(productId);
-        List<Product> productList = DataAccessObject.getProductList();
+    public String deleteProduct(@RequestParam("id") long productId, Model theModel) {
+        repositoryProduct.deleteById(productId);
+        List<Product> productList = repositoryProduct.findAll();
         theModel.addAttribute("productlist", productList);
         return "product-view";
     }
 
     @RequestMapping(value="/updateproductform", method = RequestMethod.GET)
-    public String updateProductForm(@RequestParam("id") int productId, Model theModel) {
-        Product product = DataAccessObject.getProduct(productId);
+    public String updateProductForm(@RequestParam("id") long productId, Model theModel) {
+        Product product = repositoryProduct.findById(productId).orElse(null);
         theModel.addAttribute("product", product);
         return "update-product";
     }
@@ -56,8 +57,8 @@ public class ControllerProduct {
 
     @RequestMapping(value="/updateproduct")
     public String updateProduct(@ModelAttribute("product") Product product, Model theModel) {
-        DataAccessObject.updateProduct(product);
-        List<Product> productList = DataAccessObject.getProductList();
+        repositoryProduct.save(product);
+        List<Product> productList = repositoryProduct.findAll();
         theModel.addAttribute("productlist", productList);
         return "product-view";
     }

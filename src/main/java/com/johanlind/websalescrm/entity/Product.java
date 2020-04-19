@@ -1,10 +1,10 @@
 package com.johanlind.websalescrm.entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @Entity
@@ -14,7 +14,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="product_id")
-    private int id;
+    private long id;
 
     @Column(name="product_name")
     private String name;
@@ -22,7 +22,7 @@ public class Product {
     @Column(name="product_price")
     private double price;
 
-    @Autowired
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "order_product",
@@ -30,6 +30,9 @@ public class Product {
             inverseJoinColumns = { @JoinColumn(name = "order_id") }
     )
     List<Order> orders;
+
+    @ManyToMany(mappedBy = "productList")
+    private Set<ShoppingCart> shoppingCarts;
 
     public Product() {
     }
@@ -39,7 +42,7 @@ public class Product {
         this.price = price;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

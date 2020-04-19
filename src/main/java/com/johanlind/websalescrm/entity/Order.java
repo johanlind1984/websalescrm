@@ -15,7 +15,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="order_id")
-    private int orderId;
+    private long orderId;
 
     @Autowired
     @ManyToOne
@@ -43,7 +43,7 @@ public class Order {
         productsOrdered.add(product);
     }
 
-    public int getId() {
+    public long getId() {
         return orderId;
     }
 
@@ -59,7 +59,7 @@ public class Order {
         this.productsOrdered = productsOrdered;
     }
 
-    public int getOrderId() {
+    public long getOrderId() {
         return orderId;
     }
 

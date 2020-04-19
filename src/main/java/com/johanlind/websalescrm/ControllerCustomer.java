@@ -1,5 +1,6 @@
 package com.johanlind.websalescrm;
 
+import com.johanlind.websalescrm.Repository.RepositoryCustomer;
 import com.johanlind.websalescrm.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -15,9 +16,8 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 public class ControllerCustomer {
-
     @Autowired
-    private DataAccessObject DataAccessObject = new DataAccessObject();
+    private RepositoryCustomer repositoryCustomer;
 
     @RequestMapping("/addcustomer")
     public String addCustomer(Model theModel) {
@@ -26,16 +26,16 @@ public class ControllerCustomer {
     }
 
     @RequestMapping(value="/deletecustomer", method = RequestMethod.GET)
-    public String deleteCustomer(@RequestParam("id") int customerId, Model theModel) {
-        DataAccessObject.deleteCustomer(customerId);
-        List<Customer> customerList = DataAccessObject.getCustomerList();
+    public String deleteCustomer(@RequestParam("id") long customerId, Model theModel) {
+        repositoryCustomer.deleteById(customerId);
+        List<Customer> customerList = repositoryCustomer.findAll();
         theModel.addAttribute("customerlist", customerList);
         return "customer-view";
     }
 
     @RequestMapping(value="/updatecustomerform", method = RequestMethod.GET)
-    public String updateCustomerForm(@RequestParam("id") int customerId, Model theModel) {
-        Customer customer = DataAccessObject.getCustomer(customerId);
+    public String updateCustomerForm(@RequestParam("id") long customerId, Model theModel) {
+        Customer customer = repositoryCustomer.findById(customerId).orElse(null);
         theModel.addAttribute("customer", customer);
         return "update-customer";
     }
@@ -43,30 +43,28 @@ public class ControllerCustomer {
 
     @RequestMapping(value="/updatecustomer")
     public String updateCustomer(@ModelAttribute("customer") Customer customer, Model theModel) {
-        DataAccessObject.updateCustomer(customer);
-        List<Customer> customerList = DataAccessObject.getCustomerList();
+        repositoryCustomer.save(customer);
+        List<Customer> customerList = repositoryCustomer.findAll();
         theModel.addAttribute("customerlist", customerList);
         return "customer-view";
     }
 
     @RequestMapping("/customerconfirmed")
     public String confirmCustomer(@ModelAttribute("customeradded") Customer customer) {
-        DataAccessObject.saveCustomerToDatabase(customer);
+        repositoryCustomer.save(customer);
         return "confirmation-customer-added";
     }
 
     @RequestMapping(value="/customercard", method = RequestMethod.GET)
-    public String customerCard(@RequestParam("id") int customerId, Model theModel) {
-        // Get customer with ID as in paramater
-
-        Customer customer = DataAccessObject.getCustomer(customerId);
+    public String customerCard(@RequestParam("id") long customerId, Model theModel) {
+        Customer customer = repositoryCustomer.findById(customerId).orElse(null);
         theModel.addAttribute("customer", customer);
         return "customercard";
     }
 
     @RequestMapping("/customerlist")
     public String customerView(Model theModel) {
-        List<Customer> customerList = DataAccessObject.getCustomerList();
+        List<Customer> customerList = repositoryCustomer.findAll();
         theModel.addAttribute("customerlist", customerList);
 
         return "customer-view";
