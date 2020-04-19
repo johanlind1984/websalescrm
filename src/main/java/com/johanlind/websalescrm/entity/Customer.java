@@ -1,6 +1,5 @@
 package com.johanlind.websalescrm.entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -15,7 +14,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="customer_id")
-    private int customerId;
+    private long customerId;
 
     @Column(name="name")
     private String name;
@@ -29,7 +28,9 @@ public class Customer {
     @Column(name="comments")
     private String comments;
 
-    @Autowired
+    @OneToOne(mappedBy = "customer")
+    private ShoppingCart shoppingCart;
+
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Order> orders;
@@ -50,11 +51,11 @@ public class Customer {
         orders.add(order);
     }
 
-    public int getCustomerId() {
+    public long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(long customerId) {
         this.customerId = customerId;
     }
 
@@ -96,6 +97,14 @@ public class Customer {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 
     @Override
