@@ -28,6 +28,10 @@ public class Customer {
     @Column(name="comments")
     private String comments;
 
+    @ManyToOne()
+    @JoinColumn(name="customer_employee_id")
+    private Employee employee;
+
     @OneToOne(mappedBy = "customer")
     private ShoppingCart shoppingCart;
 

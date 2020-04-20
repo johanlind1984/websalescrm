@@ -1,7 +1,6 @@
 package com.johanlind.websalescrm.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -10,54 +9,68 @@ import java.util.List;
 
 @Entity
 @Table(name="employee")
-public class Employee {
+@PrimaryKeyJoinColumn(name = "employee_user_id")
+public class Employee extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
     @Column(name="first_name")
-    private String name;
-    @Column(name="sales")
-    private double sales;
+    private String firstName;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name="last_name")
+    private String lastName;
+
+    @Column(name="email")
+    private String email;
+
+    @Column(name="phone")
+    private String phone;
+
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Customer> customerList;
+
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orderList;
 
-    public Employee(String name) {
-        this.name = name;
+    public Employee() {
     }
 
-    public void addOrder(Order order) {
-        if(orderList == null) {
-            orderList = new ArrayList<Order>();
-        }
-
-        orderList.add(order);
+    public String getFirstName() {
+        return firstName;
     }
 
-    public int getId() {
-        return id;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getLastName() {
+        return lastName;
     }
 
-    public String getName() {
-        return name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getEmail() {
+        return email;
     }
 
-    public double getSales() {
-        return sales;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setSales(double sales) {
-        this.sales = sales;
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<Customer> getCustomerList() {
+        return customerList;
+    }
+
+    public void setCustomerList(List<Customer> customerList) {
+        this.customerList = customerList;
     }
 
     public List<Order> getOrderList() {
@@ -68,13 +81,4 @@ public class Employee {
         this.orderList = orderList;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", sales=" + sales +
-                ", orderList=" + orderList +
-                '}';
-    }
 }

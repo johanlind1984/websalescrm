@@ -17,10 +17,13 @@ public class Order {
     @Column(name="order_id")
     private long orderId;
 
-    @Autowired
     @ManyToOne
     @JoinColumn(name="fk_customer_id")
-    Customer customer;
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name="fk_employee_id")
+    private Employee employee;
 
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
