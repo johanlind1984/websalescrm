@@ -28,11 +28,15 @@ public class Customer {
     @Column(name="comments")
     private String comments;
 
+    @ManyToOne()
+    @JoinColumn(name="customer_employee_id")
+    private Employee employee;
+
     @OneToOne(mappedBy = "customer")
     private ShoppingCart shoppingCart;
 
-    @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
+             cascade = CascadeType.ALL)
     private List<Order> orders;
 
     public Customer() {

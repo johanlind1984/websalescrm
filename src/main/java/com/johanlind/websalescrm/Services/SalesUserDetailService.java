@@ -16,7 +16,7 @@ public class SalesUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = repositoryUser.findByUsername(username);
+        User user = repositoryUser.findByUserName(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
