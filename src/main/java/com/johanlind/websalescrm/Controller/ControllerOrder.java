@@ -1,4 +1,4 @@
-package com.johanlind.websalescrm;
+package com.johanlind.websalescrm.Controller;
 
 import com.johanlind.websalescrm.Repository.RepositoryCustomer;
 import com.johanlind.websalescrm.Repository.RepositoryOrder;

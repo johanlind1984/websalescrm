@@ -20,9 +20,9 @@ public class AuthenticationSuccesHandler implements AuthenticationSuccessHandler
         Set<String> authoritiesList = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
         if(authoritiesList.contains("ROLE_ADMIN")) {
-            httpServletResponse.sendRedirect("/logged-in/");
+            httpServletResponse.sendRedirect("/admin");
         } else if (authoritiesList.contains("ROLE_USER")) {
-            httpServletResponse.sendRedirect("/logged-in/");
+            httpServletResponse.sendRedirect("/user/");
         } else {
             httpServletResponse.sendRedirect("/error-processing-login/");
         }
