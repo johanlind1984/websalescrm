@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name="employee")
 @PrimaryKeyJoinColumn(name = "employee_user_id")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Employee extends User {
 
     @Column(name="first_name")
@@ -29,6 +30,10 @@ public class Employee extends User {
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orderList;
+
+    @ManyToOne()
+    @JoinColumn(name="employee_company_id")
+    private Company company;
 
     public Employee() {
     }
@@ -81,4 +86,11 @@ public class Employee extends User {
         this.orderList = orderList;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 }

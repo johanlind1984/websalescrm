@@ -30,6 +30,7 @@ public class MainViewController {
     public String getCustomerListForMainView(Model theModel, Principal principal) {
         User user = repositoryUser.findByUserName(principal.getName());
         Employee employee = employeeRepository.findById(user.getId()).orElse(null);
+        System.out.println(employee.getCompany().getName());
         theModel.addAttribute("customerlist", employee.getCustomerList());
         return "start";
     }

@@ -35,8 +35,8 @@ public class Customer {
     @OneToOne(mappedBy = "customer")
     private ShoppingCart shoppingCart;
 
-    @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
+             cascade = CascadeType.ALL)
     private List<Order> orders;
 
     public Customer() {
