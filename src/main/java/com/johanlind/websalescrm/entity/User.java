@@ -13,7 +13,7 @@ public class User {
     private long id;
 
     @Column(name="username", nullable = false, unique = true)
-    private String username;
+    private String userName;
 
     @Column(name="password", nullable = false, unique = true)
     private String password;
@@ -37,12 +37,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {

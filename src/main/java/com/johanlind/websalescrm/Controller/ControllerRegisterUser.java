@@ -31,7 +31,7 @@ public class ControllerRegisterUser {
 
     @RequestMapping("/saveuser")
     public String registerUserToDatabase(@ModelAttribute("user") User user) {
-        User doesUserExist = repositoryUser.findByUsername(user.getUsername());
+        User doesUserExist = repositoryUser.findByUserName(user.getUserName());
 
         if(doesUserExist == null) {
             setUpAndSaveUser(user);

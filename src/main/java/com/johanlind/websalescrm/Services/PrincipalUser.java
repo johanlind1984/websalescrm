@@ -7,30 +7,36 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class PrincipalUser implements UserDetails {
 
-    private User user;
+    private String userName;
+    private String passWord;
+    private List<GrantedAuthority> grantedAuthority;
+    private boolean isEnabled;
 
     public PrincipalUser(User user) {
-        this.user = user;
+        this.userName = user.getUserName();
+        this.passWord = user.getPassword();
+        this.isEnabled = user.isEnabled();
+        grantedAuthority = new ArrayList<>();
+        grantedAuthority.add(new SimpleGrantedAuthority(user.getAuthority().getAuthorityName()));
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        ArrayList<SimpleGrantedAuthority> grantedAuthority = new ArrayList<>();
-        grantedAuthority.add(new SimpleGrantedAuthority(user.getAuthority().getAuthorityName()));
         return grantedAuthority;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return passWord;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return userName;
     }
 
     @Override
@@ -50,6 +56,6 @@ public class PrincipalUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isEnabled();
+        return isEnabled;
     }
 }
