@@ -24,7 +24,7 @@ public class AuthenticationSuccesHandler implements AuthenticationSuccessHandler
         } else if (authoritiesList.contains("ROLE_MANAGER")) {
             httpServletResponse.sendRedirect("/");
         } else if (authoritiesList.contains("ROLE_EMPLOYEE")) {
-            httpServletResponse.sendRedirect("/");
+            httpServletResponse.sendRedirect("/employee/mainview");
         } else {
             httpServletResponse.sendRedirect("/error-processing-login/");
         }

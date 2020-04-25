@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Welcome to websalesCRM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<header th:insert="${header}:: header"></header>
+<div align="center">
+    <div class="card" style="width: 40rem;">
+        <div class="card-body" align="center">
+            <h5 th:text="${customer.name}"></h5>
+            <p class="card-text">Telefonnummer</p>
+            <p class="card-text" th:text="${customer.phoneNumber}"></p>
+            <p class="card-text">Datum för nästa kontakt</p>
+            <p class="card-text" th:text="${customer.nextContactDate}"></p>
+            <p class="card-text">Senaste kommentar</p>
+            <p class="card-text" align="center" th:text="${customer.comments}"></p>
+            <a th:href="@{/customer/updatecustomerform(id=${customer.customerId})}">
+                <span>Uppdatera</span>
+            </a>
+        </div>
+    </div>
+</div>
+<br>
+
+<div align="center">
+    <form id="createorder" th:action="@{/order/addorderform}">
+        <button align="center" type="submit" th:name="customer" th:value="${customer.customerId}" class="btn btn-primary">Skapa ny order</button>
+    </form>
+</div>
+<br><br>
+
+<table style="width:75%" align="center" class="table">
+    <th>OrderID</th>
+    <th>Order Sammanfattning</th>
+    <th>Detaljer</th>
+    <tr th:each="order: ${customer.orders}">
+        <td align="center" th:text="${order.orderId}"/>
+        <td align="center" th:text="${order}"/>
+        <td align="center">
+            <a th:href="@{/ordercard(id=${order.orderId})}"/>
+            <span>Orderinformation</span>
+        </td>
+    </tr>
+</table>
+</body>
+
+</html>

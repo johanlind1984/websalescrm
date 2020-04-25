@@ -5,12 +5,8 @@ import java.util.List;
 
 @Entity
 @Table(name="company")
-public class Company {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="company_id")
-    private long id;
+@PrimaryKeyJoinColumn(name = "company_user_id")
+public class Company extends User {
 
     @Column(name="organisation_number")
     private String orgnaisationNumber;
@@ -22,14 +18,6 @@ public class Company {
     private List<Employee> employees;
 
     public Company() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getOrgnaisationNumber() {

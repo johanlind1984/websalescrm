@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Welcome!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<header th:insert="${header}:: header"> </header>
+
+    <table style="width:75%" align="center">
+        <th>Produkt ID</th>
+        <th>Produktnamn</th>
+        <th>Pris</th>
+<!--        <th>Action</th>-->
+        <tr th:each="product: ${productlist}">
+            <td align="center" th:text="${product.id}"/>
+            <td align="center" th:text="${product.name}"/>
+            <td align="center" th:text="${product.price}" />
+<!--            <td align="center">-->
+<!--                <a th:href="@{/deleteproduct(id=${product.id})}">-->
+<!--                    <span>Delete / </span>-->
+<!--                </a>-->
+<!--                <a th:href="@{/updateproductform(id=${product.id})}">-->
+<!--                    <span>Update</span>-->
+<!--                </a>-->
+<!--            </td>-->
+        </tr>
+    </table>
+
+
+
+
+</body>
+
+</html>

@@ -4,69 +4,31 @@
 
 <head>
     <title>Welcome to websalesCRM</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <table style="width:50%" align="center">
-        <tr>
-            <th>
-            <form id = "mainView" th:action = "@{/}" method="post">
-                <input type="submit" value="Main View"/>
-            </form>
-            </th>
-            <th>
-                <form id = "customerListView" th:action = "@{/customerlist}" method="post">
-                    <input type="submit" value="List of Customers"/>
-                </form>
-            </th>
-            <th>
-                <form id = "addCustomer" th:action = "@{/addcustomer}" method="post">
-                    <input type="submit" value="Add Customer"/>
-                </form>
-            </th>
-            <th>
-                <form id = "orderListView" th:action = "@{/orderlist}" method="post">
-                    <input type="submit" value="List of Orders"/>
-                </form>
-            </th>
-            <th>
-                <form id = "productListView" th:action = "@{/productlist}" method="post">
-                    <input type="submit" value="List of Products" />
-                </form>
-            </th>
-            <th>
-                <form id = "addProduct" th:action = "@{/addproduct}" method="post">
-                <input type="submit" value="Add Product" />
-            </form>
-            </th>
-        </tr>
-    </table>
-    <br><br><br>
-    <h1 th:align="center">Calls Today</h1>
-    <br><br><br>
-    <table style="width:75%" align="center">
-        <th>Customer ID</th>
-        <th>Customer Card</th>
-        <th>Customer Name</th>
-        <th>Phone</th>
-        <th>Call date</th>
-        <tr th:each="customer: ${customerlist}">
-            <td align="center" th:text="${customer.customerId}"></td>
-            <td align="center">
-                <a th:href="@{/customercard(id=${customer.customerId})}">
-                    <span>Customer Card</span>
+<header th:insert="${header}:: header"> </header>
+    <table style="width:75%" align="center" class="table">
+        <th>Kundkort</th>
+        <th>Företag</th>
+        <th>Telefonnummer</th>
+        <th>Nästa kontakt</th>
+        <tr th:each="customer: ${employee.customerList}">
+            <td>
+                <a th:href="@{/customer/customercard(id=${customer.customerId})}">
+                    <span>Kundkort</span>
+                </a>
             </td>
-            <td align="center" th:text="${customer.name}"/>
-            <td align="center" th:text="${customer.phoneNumber}" />
-            <td align="center" th:text="${customer.nextContactDate}"/>
-
+            <td th:text="${customer.name}"/>
+            <td th:text="${customer.phoneNumber}" />
+            <td th:text="${customer.nextContactDate}"/>
         </tr>
     </table>
-
-
-
-
 </body>
 
 </html>

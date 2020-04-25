@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>EASY CLOSE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<header th:insert="${header}:: header"></header>
+
+<table style="width:75%" align="center" class="table">
+    <th>Kundkort</th>
+    <th>Kunndnamn</th>
+    <th>Telefonnummer</th>
+    <th>Uppdatera information</th>
+    <tr th:each="customer: ${customerlist}">
+        <td>
+            <a th:href="@{/customer/customercard(id=${customer.customerId})}">
+                <span>Kundkort</span>
+            </a>
+        </td>
+        <td th:text="${customer.name}"/>
+        <td th:text="${customer.phoneNumber}"/>
+        <td>
+            <a th:href="@{/customer/updatecustomerform(id=${customer.customerId})}">
+                <span>Uppdatera</span>
+            </a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
