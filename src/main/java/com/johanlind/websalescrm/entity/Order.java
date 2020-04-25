@@ -1,6 +1,5 @@
 package com.johanlind.websalescrm.entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -26,14 +25,12 @@ public class Order {
     private Employee employee;
 
     @ManyToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+            cascade = {CascadeType.ALL})
     @JoinTable(
             name = "order_product",
             joinColumns = { @JoinColumn(name = "order_id") },
             inverseJoinColumns = { @JoinColumn(name = "product_id") }
     )
-
-    @Autowired
     private List<Product> productsOrdered;
 
     public Order() {
@@ -76,6 +73,18 @@ public class Order {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override

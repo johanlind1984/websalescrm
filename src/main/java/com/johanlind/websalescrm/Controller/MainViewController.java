@@ -1,8 +1,10 @@
 package com.johanlind.websalescrm.Controller;
 
+import com.johanlind.websalescrm.Repository.RepositoryCompany;
 import com.johanlind.websalescrm.Repository.RepositoryCustomer;
 import com.johanlind.websalescrm.Repository.RepositoryEmployee;
 import com.johanlind.websalescrm.Repository.RepositoryUser;
+import com.johanlind.websalescrm.Utility.WebSalesUtilities;
 import com.johanlind.websalescrm.entity.Employee;
 import com.johanlind.websalescrm.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,16 @@ public class MainViewController {
     @Autowired
     private RepositoryEmployee employeeRepository;
 
-    @RequestMapping("/")
+    @Autowired
+    private RepositoryCompany repositoryCompany;
+
+    @RequestMapping("/employee/mainview")
     public String getCustomerListForMainView(Model theModel, Principal principal) {
         User user = repositoryUser.findByUserName(principal.getName());
         Employee employee = employeeRepository.findById(user.getId()).orElse(null);
-        System.out.println(employee.getCompany().getName());
+        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(user));
         theModel.addAttribute("customerlist", employee.getCustomerList());
+        theModel.addAttribute("employee", employee);
         return "start";
     }
 }

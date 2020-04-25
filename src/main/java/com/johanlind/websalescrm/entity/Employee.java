@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name="employee")
 @PrimaryKeyJoinColumn(name = "employee_user_id")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Employee extends User {
 
     @Column(name="first_name")

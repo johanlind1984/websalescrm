@@ -22,7 +22,6 @@ public class Product {
     @Column(name="product_price")
     private double price;
 
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "order_product",

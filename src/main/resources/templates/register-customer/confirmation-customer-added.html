@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Welcome to websalesCRM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<header th:insert="${header}:: header"> </header>
+
+<h2>Customer Added</h2>
+
+<h1 align="center" th:text="'Added ' + ${customeradded.name} + ', ' + ${customeradded.phoneNumber} + ', ' + ${customeradded.comments} "/>
+<br>
+<div align="center">
+<form id = "back" th:action = "@{/}" method="post">
+    <input type="submit" value="Back to Main View"/>
+</form>
+</div>
+
+</body>
+
+</html>

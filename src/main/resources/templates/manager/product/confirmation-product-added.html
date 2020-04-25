@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Confirmation Product added</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<header th:insert="${header}:: header"> </header>
+
+<h2>Produkt tillagd</h2>
+
+<h1 align="center" th:text="'Added Product: ' + ${productadded.name} + ', ' + ${productadded.price}"/>
+<div align="center">
+<form id = "back" th:action = "@{/}" method="post">
+    <input type="submit" value="Back to Main View"/>
+</form>
+</div>
+</body>
+
+</html>

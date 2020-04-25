@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Welcome to websalesCRM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<header th:insert="${header}:: header"></header>
+<h1 align="center" th:text="'Customer: ' + ${customer.name}"></h1>
+<table align="center" class="table">
+        <th>Produkt Id</th>
+        <th>Produktnamn</th>
+        <th>Pris</th>
+        <th>Lägg till i order</th>
+    <tr th:each="product: ${productlist}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td>
+            <form id="addproduct" th:action="@{/order/addtoorder(productid=${product.id},customerid=${customer.customerId})}"
+                  method='POST'>
+                <input type="submit" value="Lägg till produkt" class="btn btn-primary"/></p>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<h2 align="center">Products in Order:</h2>
+<br>
+<table align="center" class="table">
+    <th>Product Name</th>
+    <th>Product Price</th>
+    <tr th:each="product : ${shoppingcart.productList}">
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+    </tr>
+</table>
+<br><br>
+<div align="center">
+    <form name="order" th:action="@{/order/finalizeorder(customerid=${customer.customerId})}" method='POST'>
+        <input type="submit" value="Slutför Order" class="btn btn-primary"/></p>
+    </form>
+</div>
+
+</body>
+
+</html>

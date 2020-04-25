@@ -3,8 +3,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Customer Card</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Welcome to websalesCRM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -44,35 +48,28 @@
 </table>
 <br><br><br>
 
-<h1 align="center">Customer Card</h1>
+<h1 align="center">Order Card</h1>
 <br><br><br>
-<h1 align="center" th:text="'Name: ' + ${customer.name}"></h1>
-<h2 align="center" th:text="'Customer ID: ' + ${customer.customerId}"></h2>
-<h2 align="center" th:text="'Phone number: ' + ${customer.phoneNumber}"></h2>
-<h2 align="center" th:text="'Next date to call: ' + ${customer.nextContactDate}"></h2>
-<h2 align="center" th:text="'Comments: ' + ${customer.comments}"></h2>
-<br>
-<h2 align="center" th:text="'Orders:'"></h2>
-<br><br>
-<div align="center">
-<form id = "createorder" th:action = "@{/addorderform(customer=${customer.customerId})}" method="post">
-    <input align="center" type="submit" value="Create Order"/>
-</form>
-</div>
+<h1 align="center" th:text="'Order ID: ' + ${order.id}"></h1>
+<h2 align="center" th:text="'Customer ID: ' + ${order.customer?.customerId}"></h2>
 
 <table style="width:75%" align="center">
-    <th>OrdersID </th>
-    <th>Order Summary</th>
-    <th>Details</th>
-    <tr th:each="order: ${customer.orders}">
-        <td align="center" th:text="${order.orderId}"/>
-        <td align="center" th:text="${order}"/>
-        <td align="center">
-            <a th:href="@{/ordercard(id=${order.orderId})}"/>
-            <span>Order Details</span>
-        </td>
+    <th>Product Id</th>
+    <th>Product name</th>
+    <th>Price</th>
+    <tr th:each="product: ${order.productsOrdered}">
+        <td align="center" th:text="${product.id}"/>
+        <td align="center" th:text="${product.name}"/>
+        <td align="center" th:text="${product.price}"/>
     </tr>
 </table>
+
+<br>
+<form id = "back" th:action = "@{/}" method="post">
+    <input type="submit" value="Back to Main View"/>
+</form>
+
+
 </body>
 
 </html>
