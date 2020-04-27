@@ -15,4 +15,6 @@ public interface RepositoryCustomer extends JpaRepository<Customer, Long> {
     Customer findByEmployeeAndCustomerId(Long employeeId, Long customerId);
 
     List<Customer> findByEmployeeOrderByNextContactDateAsc(Employee employee);
+    List<Customer> findByEmployeeOrderByNameAsc(Employee employee);
+
 }
