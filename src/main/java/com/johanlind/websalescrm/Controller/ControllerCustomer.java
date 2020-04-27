@@ -1,9 +1,11 @@
 package com.johanlind.websalescrm.Controller;
 
 import com.johanlind.websalescrm.Repository.RepositoryCustomer;
+import com.johanlind.websalescrm.Repository.RepositoryEmployee;
 import com.johanlind.websalescrm.Repository.RepositoryUser;
 import com.johanlind.websalescrm.Utility.WebSalesUtilities;
 import com.johanlind.websalescrm.entity.Customer;
+import com.johanlind.websalescrm.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,9 @@ public class ControllerCustomer {
 
     @Autowired
     private RepositoryUser repositoryUser;
+
+    @Autowired
+    private RepositoryEmployee repositoryEmployee;
 
     @RequestMapping("/register-customer")
     public String addCustomer(Model theModel, Principal principal) {
@@ -69,7 +74,13 @@ public class ControllerCustomer {
 
     @RequestMapping(value="customer/customercard", method = RequestMethod.GET)
     public String customerCard(@RequestParam("id") long customerId, Model theModel, Principal principal) {
-        Customer customer = repositoryCustomer.findById(customerId).orElse(null);
+        Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
+        Customer customer = repositoryCustomer.findByEmployeeAndCustomerId(employee.getId(), customerId);
+
+        if(customer == null) {
+            return "/error/your-customer-could-not-be-found";
+        }
+
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
         theModel.addAttribute("customer", customer);
         return "customer/customercard";
