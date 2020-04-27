@@ -18,7 +18,7 @@
         <th>Företag</th>
         <th>Telefonnummer</th>
         <th>Nästa kontakt</th>
-        <tr th:each="customer: ${employee.customerList}">
+        <tr th:each="customer: ${customerList}">
             <td>
                 <a th:href="@{/customer/customercard(id=${customer.customerId})}">
                     <span>Kundkort</span>
