@@ -19,7 +19,7 @@
     <th>Kunndnamn</th>
     <th>Telefonnummer</th>
     <th>Uppdatera information</th>
-    <tr th:each="customer: ${customerlist}">
+    <tr th:each="customer: ${customerList}">
         <td>
             <a th:href="@{/customer/customercard(id=${customer.customerId})}">
                 <span>Kundkort</span>
