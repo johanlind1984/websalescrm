@@ -9,6 +9,7 @@ import com.johanlind.websalescrm.entity.Employee;
 import com.johanlind.websalescrm.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +37,7 @@ public class MainViewController {
         User user = repositoryUser.findByUserName(principal.getName());
         Employee employee = employeeRepository.findById(user.getId()).orElse(null);
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(user));
-        theModel.addAttribute("customerlist", employee.getCustomerList());
+        theModel.addAttribute("customerlist", repositoryCustomer.findByDateContactBeforeToday(employee.getId()));
         theModel.addAttribute("employee", employee);
         return "start";
     }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.List;
@@ -39,41 +40,36 @@ public class ControllerCustomer {
     }
 
     @RequestMapping(value="/manager/deletecustomer", method = RequestMethod.GET)
-    public String deleteCustomer(@RequestParam("id") long customerId, Model theModel, Principal principal) {
+    public ModelAndView deleteCustomer(@RequestParam("id") long customerId, Model theModel, Principal principal) {
         repositoryCustomer.deleteById(customerId);
-        List<Customer> customerList = repositoryCustomer.findAll();
-        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
-        theModel.addAttribute("customerlist", customerList);
-        return "customer/customer-view";
+        return new ModelAndView("redirect:/employee/mainview");
     }
 
     @RequestMapping(value="/customer/updatecustomerform", method = RequestMethod.GET)
     public String updateCustomerForm(@RequestParam("id") long customerId, Model theModel, Principal principal) {
-        Customer customer = repositoryCustomer.findById(customerId).orElse(null);
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
+        Customer customer = repositoryCustomer.findById(customerId).orElse(null);
         theModel.addAttribute("customer", customer);
         return "customer/update-customer";
     }
 
 
     @RequestMapping(value="/customer/updatecustomer")
-    public String updateCustomer(@ModelAttribute("customer") Customer customer, Model theModel, Principal principal) {
-        repositoryCustomer.save(customer);
-        List<Customer> customerList = repositoryCustomer.findAll();
-        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
-        theModel.addAttribute("customerlist", customerList);
-        return "customer/customer-view";
+    public ModelAndView updateCustomer(@ModelAttribute("customer") Customer customer) {
+        repositoryCustomer.saveAndFlush(customer);
+        return new ModelAndView("redirect:/employee/mainview");
     }
 
     @RequestMapping("/customer/customerconfirmed")
     public String confirmCustomer(@ModelAttribute("customeradded") Customer customer, Model theModel, Principal principal) {
-        repositoryCustomer.save(customer);
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
+        repositoryCustomer.save(customer);
         return "register-customer/confirmation-customer-added";
     }
 
     @RequestMapping(value="customer/customercard", method = RequestMethod.GET)
     public String customerCard(@RequestParam("id") long customerId, Model theModel, Principal principal) {
+        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
         Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
         Customer customer = repositoryCustomer.findByEmployeeAndCustomerId(employee.getId(), customerId);
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
@@ -82,16 +78,16 @@ public class ControllerCustomer {
             return "/error/your-customer-could-not-be-found";
         }
 
-        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
         theModel.addAttribute("customer", customer);
         return "customer/customercard";
     }
 
     @RequestMapping("customer/customer-list")
     public String customerView(Model theModel, Principal principal) {
-        List<Customer> customerList = repositoryCustomer.findAll();
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
-        theModel.addAttribute("customerlist", customerList);
+        List<Customer> customerList =
+                repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null).getCustomerList();
+        theModel.addAttribute("customerList", customerList);
         return "customer/customer-view";
     }
 }
