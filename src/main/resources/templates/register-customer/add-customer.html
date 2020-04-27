@@ -12,19 +12,19 @@
 </head>
 
 <body>
-<header th:insert="${header}:: header"> </header>
+<header th:insert="${header}:: header"></header>
 
-<form th:object="${customeradded}" th:action="@{/customerconfirmed}" method="post">
+<form th:object="${customeradded}" th:action="@{/register-customer/save-customer}" method="post">
     <div class="form-group">
-    <label>Företag </label>
-        <input class="form-control"type="text" th:field="*{name}"/>
-    <label>Telefonnummer </label>
+        <label>Företag </label>
+        <input class="form-control" type="text" th:field="*{name}"/>
+        <label>Telefonnummer </label>
         <input class="form-control" type="text" th:field="*{phoneNumber}"/>
-    <label>Datum för nästa kontakt</label>
+        <label>E-post </label>
+        <input class="form-control" type="text" th:field="*{email}"/>
+        <label>Datum för nästa kontakt</label>
         <input class="form-control" type="date" th:field="*{nextContactDate}"/>
-    <label>Kommentarer: </label>
-        <input class="form-control" type="text" th:field="*{comments}"/>
-    <input type="submit" value="Submit" class="btn btn-primary"/>
+        <input type="submit" value="Submit" class="btn btn-primary"/>
     </div>
 </form>
 
