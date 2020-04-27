@@ -76,6 +76,7 @@ public class ControllerCustomer {
     public String customerCard(@RequestParam("id") long customerId, Model theModel, Principal principal) {
         Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
         Customer customer = repositoryCustomer.findByEmployeeAndCustomerId(employee.getId(), customerId);
+        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
 
         if(customer == null) {
             return "/error/your-customer-could-not-be-found";
