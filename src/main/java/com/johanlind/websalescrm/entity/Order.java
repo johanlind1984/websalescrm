@@ -91,9 +91,9 @@ public class Order {
     public String toString() {
 
         if (productsOrdered == null) {
-            return "There's no orders";
+            return "Det finns ingar ordrar att hämta";
         } else {
-            return "Order Summary: " + productsOrdered;
+            return "" + productsOrdered;
         }
     }
 }
