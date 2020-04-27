@@ -6,6 +6,7 @@ import com.johanlind.websalescrm.Repository.RepositoryUser;
 import com.johanlind.websalescrm.Utility.WebSalesUtilities;
 import com.johanlind.websalescrm.entity.Customer;
 import com.johanlind.websalescrm.entity.Employee;
+import com.johanlind.websalescrm.entity.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,18 @@ public class ControllerCustomer {
         return "register-customer/add-customer";
     }
 
+    @RequestMapping("/register-customer/save-customer")
+    public String saveCustomerToDatabaseAsNewCustomer(@ModelAttribute("customeradded") Customer customer, Model theModel, Principal principal) {
+        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
+        Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setCustomer(customer);
+        customer.setEmployee(employee);
+        customer.setShoppingCart(shoppingCart);
+        repositoryCustomer.save(customer);
+        return "register-customer/confirmation-customer-added";
+    }
+
     @RequestMapping(value="/manager/deletecustomer", method = RequestMethod.GET)
     public ModelAndView deleteCustomer(@RequestParam("id") long customerId, Model theModel, Principal principal) {
         repositoryCustomer.deleteById(customerId);
@@ -58,13 +71,6 @@ public class ControllerCustomer {
     public ModelAndView updateCustomer(@ModelAttribute("customer") Customer customer) {
         repositoryCustomer.saveAndFlush(customer);
         return new ModelAndView("redirect:/employee/mainview");
-    }
-
-    @RequestMapping("/customer/customerconfirmed")
-    public String confirmCustomer(@ModelAttribute("customeradded") Customer customer, Model theModel, Principal principal) {
-        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
-        repositoryCustomer.save(customer);
-        return "register-customer/confirmation-customer-added";
     }
 
     @RequestMapping(value="customer/customercard", method = RequestMethod.GET)

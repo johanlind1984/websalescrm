@@ -19,10 +19,12 @@
             <h5 th:text="${customer.name}"></h5>
             <p class="card-text">Telefonnummer</p>
             <p class="card-text" th:text="${customer.phoneNumber}"></p>
+            <p class="card-text">E-post</p>
+            <p class="card-text" th:text="${customer.email}"></p>
             <p class="card-text">Datum för nästa kontakt</p>
             <p class="card-text" th:text="${customer.nextContactDate}"></p>
             <p class="card-text">Senaste kommentar</p>
-            <p class="card-text" align="center" th:text="${customer.comments}"></p>
+<!--            <p class="card-text" align="center" th:text="${customer.comments}"></p>-->
             <a th:href="@{/customer/updatecustomerform(id=${customer.customerId})}">
                 <span>Uppdatera</span>
             </a>

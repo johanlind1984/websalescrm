@@ -22,17 +22,20 @@ public class Customer {
     @Column(name="phone_number")
     private String phoneNumber;
 
+    @Column(name="email")
+    private String email;
+
     @Column(name="next_contact")
     private String nextContactDate;
 
-    @OneToMany(mappedBy="customer")
+    @OneToMany(mappedBy="customer", cascade = CascadeType.ALL)
     private List<Comment> commentList;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="customer_employee_id")
     private Employee employee;
 
-    @OneToOne(mappedBy = "customer")
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private ShoppingCart shoppingCart;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
@@ -101,6 +104,22 @@ public class Customer {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public ShoppingCart getShoppingCart() {

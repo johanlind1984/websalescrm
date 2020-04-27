@@ -17,6 +17,7 @@
         <th>Kundkort</th>
         <th>Företag</th>
         <th>Telefonnummer</th>
+        <th>E-post</th>
         <th>Nästa kontakt</th>
         <tr th:each="customer: ${customerList}">
             <td>
@@ -26,6 +27,7 @@
             </td>
             <td th:text="${customer.name}"/>
             <td th:text="${customer.phoneNumber}" />
+            <td th:text="${customer.email}"/>
             <td th:text="${customer.nextContactDate}"/>
         </tr>
     </table>

@@ -18,6 +18,7 @@
     <th>Kundkort</th>
     <th>Kunndnamn</th>
     <th>Telefonnummer</th>
+    <th>E-post</th>
     <th>Uppdatera information</th>
     <tr th:each="customer: ${customerList}">
         <td>
@@ -27,6 +28,7 @@
         </td>
         <td th:text="${customer.name}"/>
         <td th:text="${customer.phoneNumber}"/>
+        <td th:text="${customer.email}"/>
         <td>
             <a th:href="@{/customer/updatecustomerform(id=${customer.customerId})}">
                 <span>Uppdatera</span>

@@ -16,16 +16,17 @@
 
 <form th:object="${customer}" th:action="@{/customer/updatecustomer}" method="post">
     <div class="form-group">
-    <input type="hidden" th:field="*{customerId}" th:value="${customer.customerId}"/>
-    <label>Kundnamn</label>
+        <input type="hidden" th:field="*{customerId}" th:value="${customer.customerId}"/>
+        <label>Kundnamn</label>
         <input type="text" th:field="*{name}" th:value="${customer.name}" class="form-control"/>
-    <label>Telefonnummer</label>
+        <label>Telefonnummer</label>
         <input type="text" th:field="*{phoneNumber}" th:value="${customer.phoneNumber}" class="form-control"/>
-    <label>Datum för nästa kontakt</label>
+        <label>E-post</label>
+        <input type="text" th:field="*{email}" th:value="${customer.email}" class="form-control"/>
+        <label>Datum för nästa kontakt</label>
         <input type="date" th:field="*{nextContactDate}" th:value="${customer.nextContactDate}" class="form-control"/>
-    <label>Kommentar</label>
-        <input type="text" th:field="*{comments}" th:value="${customer.comments}" class="form-control"/>
-    <input type="submit" value="Spara ändringar" class="btn btn-primary"/>
+        <input type="hidden" th:field="*{employee}" th:value="${employee}"/>
+        <input type="submit" value="Spara ändringar" class="btn btn-primary"/>
     </div>
 </form>
 
