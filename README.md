@@ -10,10 +10,6 @@ This is a very basic sales CRM, theres a lot of improvements that can be made. H
 Spring Boot, Tymeleaf and Hibernate NOT to make a competitive salesCRM. But i'm sure i will come back and update the project to
 learn more.
 
-Requirements:
-Maven
-MySQL
-
 MySQL create database and tables:
 
 DATABASE
