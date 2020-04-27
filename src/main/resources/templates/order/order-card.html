@@ -12,64 +12,23 @@
 </head>
 
 <body>
-<table style="width:50%" align="center">
-    <tr>
-        <th>
-            <form id = "mainView" th:action = "@{/}" method="post">
-                <input type="submit" value="Main View"/>
-            </form>
-        </th>
-        <th>
-            <form id = "customerListView" th:action = "@{/customerlist}" method="post">
-                <input type="submit" value="List of Customers"/>
-            </form>
-        </th>
-        <th>
-            <form id = "addCustomer" th:action = "@{/addcustomer}" method="post">
-                <input type="submit" value="Add Customer"/>
-            </form>
-        </th>
-        <th>
-            <form id = "orderListView" th:action = "@{/orderlist}" method="post">
-                <input type="submit" value="List of Orders"/>
-            </form>
-        </th>
-        <th>
-            <form id = "productListView" th:action = "@{/productlist}" method="post">
-                <input type="submit" value="List of Products" />
-            </form>
-        </th>
-        <th>
-            <form id = "addProduct" th:action = "@{/addproduct}" method="post">
-                <input type="submit" value="Add Product" />
-            </form>
-        </th>
-    </tr>
-</table>
-<br><br><br>
+<header th:insert="${header}:: header"> </header>
 
 <h1 align="center">Order Card</h1>
 <br><br><br>
 <h1 align="center" th:text="'Order ID: ' + ${order.id}"></h1>
-<h2 align="center" th:text="'Customer ID: ' + ${order.customer?.customerId}"></h2>
+<h2 align="center" th:text="'Customer ID: ' + ${order.customer.customerId}"></h2>
 
-<table style="width:75%" align="center">
-    <th>Product Id</th>
-    <th>Product name</th>
-    <th>Price</th>
+<table style="width:75%" align="center" class="table">
+    <th>Produkt Id</th>
+    <th>Produktnamn</th>
+    <th>Pris</th>
     <tr th:each="product: ${order.productsOrdered}">
-        <td align="center" th:text="${product.id}"/>
-        <td align="center" th:text="${product.name}"/>
-        <td align="center" th:text="${product.price}"/>
+        <td th:text="${product.id}"/>
+        <td th:text="${product.name}"/>
+        <td th:text="${product.price}"/>
     </tr>
 </table>
-
-<br>
-<form id = "back" th:action = "@{/}" method="post">
-    <input type="submit" value="Back to Main View"/>
-</form>
-
-
 </body>
 
 </html>
