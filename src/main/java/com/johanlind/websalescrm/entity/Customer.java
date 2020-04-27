@@ -25,8 +25,8 @@ public class Customer {
     @Column(name="next_contact")
     private String nextContactDate;
 
-    @Column(name="comments")
-    private String comments;
+    @OneToMany(mappedBy="customer")
+    private List<Comment> commentList;
 
     @ManyToOne()
     @JoinColumn(name="customer_employee_id")
@@ -79,12 +79,12 @@ public class Customer {
         this.nextContactDate = nextContactDate;
     }
 
-    public String getComments() {
-        return comments;
+    public List<Comment> getCommentList() {
+        return commentList;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 
     public List<Order> getOrders() {
@@ -117,7 +117,7 @@ public class Customer {
                 "id=" + customerId +
                 ", name='" + name + '\'' +
                 ", nextContactDate='" + nextContactDate + '\'' +
-                ", comments='" + comments + '\'' +
+                ", comments='" + commentList + '\'' +
                 ", orders=" + orders +
                 '}';
     }
