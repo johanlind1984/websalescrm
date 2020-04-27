@@ -91,8 +91,8 @@ public class ControllerCustomer {
     @RequestMapping("customer/customer-list")
     public String customerView(Model theModel, Principal principal) {
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
-        List<Customer> customerList =
-                repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null).getCustomerList();
+        Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
+        List<Customer> customerList = repositoryCustomer.findByEmployeeOrderByNameAsc(employee);
         theModel.addAttribute("customerList", customerList);
         return "customer/customer-view";
     }
