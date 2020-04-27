@@ -59,7 +59,7 @@ public class ControllerOrder {
         Order order = repositoryOrder.findById(orderId).orElse(null);
         theModel.addAttribute("order", order);
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
-        return "order/ordercard";
+        return "order/order-card";
     }
 
     @RequestMapping("order/orderlist")
