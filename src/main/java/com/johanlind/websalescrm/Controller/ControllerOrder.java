@@ -2,10 +2,7 @@ package com.johanlind.websalescrm.Controller;
 
 import com.johanlind.websalescrm.Repository.*;
 import com.johanlind.websalescrm.Utility.WebSalesUtilities;
-import com.johanlind.websalescrm.entity.Customer;
-import com.johanlind.websalescrm.entity.Employee;
-import com.johanlind.websalescrm.entity.Order;
-import com.johanlind.websalescrm.entity.Product;
+import com.johanlind.websalescrm.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -57,52 +54,82 @@ public class ControllerOrder {
     @RequestMapping(value="order/ordercard", method = RequestMethod.GET)
     public String orderCard(@RequestParam("id") long orderId, Model theModel, Principal principal) {
         Order order = repositoryOrder.findById(orderId).orElse(null);
-        theModel.addAttribute("order", order);
-        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
-        return "order/order-card";
+        Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
+
+        if(employee.getId() == order.getEmployee().getId()) {
+            theModel.addAttribute("order", order);
+            theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
+            return "order/order-card";
+        }
+
+        return "error/your-order-could-not-be-found";
+
+
     }
 
     @RequestMapping("order/orderlist")
     public String orderView(Model theModel, Principal principal) {
-        List<Order> orderList = repositoryOrder.findAll();
+        List<Order> orderList = repositoryOrder.findByEmployee(repositoryEmployee.findById(
+                repositoryUser.findByUserName(principal.getName()).getId()).orElse(null));
         theModel.addAttribute("orderlist", orderList);
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
         return "order/order-view";
     }
     @RequestMapping(value="order/deleteorder", method = RequestMethod.GET)
     public String deleteOrder(@RequestParam("id") long orderId,  Model theModel, Principal principal) {
+        User user = repositoryUser.findByUserName(principal.getName());
+        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(user));
+        Employee employee = repositoryEmployee.findById(user.getId()).orElse(null);
+        Order order = repositoryOrder.findByOrderIdAndEmployee(orderId, employee);
+
+        if(order == null) {
+            return "error/your-order-could-not-be-found";
+        }
+
         repositoryOrder.deleteById(orderId);
         List<Order> orderList = repositoryOrder.findAll();
         theModel.addAttribute("orderlist", orderList);
-        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
         return "order/order-view";
+
     }
     @RequestMapping(value="order/addtoorder", method = RequestMethod.POST)
     public String addToOrder(@RequestParam("productid") long productId, @RequestParam("customerid") long customerId, Model theModel, Principal principal) {
         Customer customer = repositoryCustomer.findById(customerId).orElse(null);
         Product product = repositoryProduct.findById(productId).orElse(null);
-        customer.getShoppingCart().getProductList().add(product);
-        repositoryCustomer.save(customer);
-
-        List<Product> productList = repositoryProduct.findAll();
-        theModel.addAttribute("customer", customer);
-        theModel.addAttribute("shoppingcart", customer.getShoppingCart());
-        theModel.addAttribute("productlist", productList);
+        Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
 
-        return "order/add-order";
+
+        if(employee.getCompany().getId() == customer.getCompany().getId()) {
+            customer.getShoppingCart().getProductList().add(product);
+            repositoryCustomer.save(customer);
+            List<Product> productList = repositoryProduct.findAll();
+            theModel.addAttribute("customer", customer);
+            theModel.addAttribute("shoppingcart", customer.getShoppingCart());
+            theModel.addAttribute("productlist", productList);
+            return "order/add-order";
+        }
+
+        return "error/your-order-could-not-be-found";
     }
 
     @RequestMapping(value="order/addorderform")
     public String addOrderForm(@RequestParam("customer") long customerId, Model theModel, Principal principal) {
         List<Product> productList = repositoryProduct.findAll();
         Customer customer = repositoryCustomer.findById(customerId).orElse(null);
-        theModel.addAttribute("customer", customer);
-        theModel.addAttribute("shoppingcart", customer.getShoppingCart());
-        theModel.addAttribute("product", new Product());
-        theModel.addAttribute("productlist", productList);
+        Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
-        return "order/add-order";
+
+
+        if(employee.getCompany().getId() == customer.getCompany().getId()) {
+            theModel.addAttribute("customer", customer);
+            theModel.addAttribute("shoppingcart", customer.getShoppingCart());
+            theModel.addAttribute("product", new Product());
+            theModel.addAttribute("productlist", productList);
+            return "order/add-order";
+        }
+
+        return "error/your-order-could-not-be-found";
     }
 
 
@@ -111,21 +138,27 @@ public class ControllerOrder {
     public String finalizeOrder(@RequestParam("customerid") long customerId, Model theModel, Principal principal) {
         Customer customer = repositoryCustomer.findById(customerId).orElse(null);
         Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
-        Order order = new Order();
-        order.setCustomer(customer);
-        order.setEmployee(employee);
 
-        for (Product product : customer.getShoppingCart().getProductList()) {
-            order.addProduct(product);
+        if(employee.getCompany().getId() == customer.getCompany().getId()) {
+            Order order = new Order();
+            order.setCustomer(customer);
+            order.setEmployee(employee);
+            order.setCompany(employee.getCompany());
+
+            for (Product product : customer.getShoppingCart().getProductList()) {
+                order.addProduct(product);
+            }
+
+            customer.getOrders().add(order);
+            repositoryCustomer.save(customer);
+
+            customer.getShoppingCart().setProductList(new ArrayList<>());
+            List<Order> orderList = repositoryOrder.findAll();
+            theModel.addAttribute("orderlist", orderList);
+            theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
+            return "order/order-view";
         }
 
-        customer.getOrders().add(order);
-        repositoryCustomer.save(customer);
-
-        customer.getShoppingCart().setProductList(new ArrayList<>());
-        List<Order> orderList = repositoryOrder.findAll();
-        theModel.addAttribute("orderlist", orderList);
-        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
-        return "order/order-view";
+        return "error/your-order-could-not-be-found";
     }
 }
