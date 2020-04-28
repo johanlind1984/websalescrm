@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,11 +38,6 @@ public class ControllerOrder {
     @RequestMapping("order/orderlist")
     public String orderView(Model theModel, Principal principal) {
         Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
-
-        // TEST
-            System.out.println(employee.getFirstName());
-        //
-
         List<Order> orderList = repositoryOrder.findByEmployee(repositoryEmployee.findById(
                 repositoryUser.findByUserName(principal.getName()).getId()).orElse(null));
         theModel.addAttribute("orderlist", orderList);
@@ -140,8 +134,8 @@ public class ControllerOrder {
             }
 
             customer.getOrders().add(order);
+            customer.getShoppingCart().getProductList().clear();
             repositoryCustomer.save(customer);
-            customer.getShoppingCart().setProductList(new ArrayList<>());
             return new ModelAndView("redirect:/order/orderlist");
         }
 
@@ -157,8 +151,6 @@ public class ControllerOrder {
     }
 
     private Boolean doesEmployeesCompanyOwnCustomer(Employee employee, Customer customer) {
-        System.out.println("CUSTO: " + customer.getCompany().getId());
-        System.out.println("EMPLO: " + employee.getCompany().getId());
         if(employee.getCompany().getId() == customer.getCompany().getId()) {
             return true;
         }
