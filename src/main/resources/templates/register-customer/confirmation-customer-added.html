@@ -13,17 +13,7 @@
 
 <body>
 <header th:insert="${header}:: header"> </header>
-
-<h2>Customer Added</h2>
-
-<h1 align="center" th:text="'Added ' + ${customeradded.name} + ', ' + ${customeradded.phoneNumber}"/>
-<br>
-<div align="center">
-<form id = "back" th:action = "@{/}" method="post">
-    <input type="submit" value="Back to Main View"/>
-</form>
-</div>
-
+<h3 align="center" th:text="${customeradded.name} + ' lades till utan några problem'"/>
 </body>
 
 </html>
