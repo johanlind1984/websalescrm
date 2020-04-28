@@ -28,8 +28,7 @@ public class Order {
     @JoinColumn(name="fk_company_id")
     private Company company;
 
-    @ManyToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "order_product",
             joinColumns = { @JoinColumn(name = "order_id") },

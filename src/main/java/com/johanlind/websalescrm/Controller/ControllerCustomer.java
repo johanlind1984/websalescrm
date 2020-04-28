@@ -44,10 +44,7 @@ public class ControllerCustomer {
     public String saveCustomerToDatabaseAsNewCustomer(@ModelAttribute("customeradded") Customer customer, Model theModel, Principal principal) {
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
         Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setCustomer(customer);
-        customer.setEmployee(employee);
-        customer.setShoppingCart(shoppingCart);
+        setUpCustomerBeforeSaving(customer, employee);
         repositoryCustomer.save(customer);
         return "register-customer/confirmation-customer-added";
     }
@@ -69,7 +66,7 @@ public class ControllerCustomer {
 
     @RequestMapping(value="/customer/updatecustomer")
     public ModelAndView updateCustomer(@ModelAttribute("customer") Customer customer) {
-        repositoryCustomer.saveAndFlush(customer);
+        repositoryCustomer.save(customer);
         return new ModelAndView("redirect:/employee/mainview");
     }
 
@@ -95,5 +92,13 @@ public class ControllerCustomer {
         List<Customer> customerList = repositoryCustomer.findByEmployeeOrderByNameAsc(employee);
         theModel.addAttribute("customerList", customerList);
         return "customer/customer-view";
+    }
+
+    private void setUpCustomerBeforeSaving(Customer customer, Employee employee) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setCustomer(customer);
+        customer.setEmployee(employee);
+        customer.setShoppingCart(shoppingCart);
+        customer.setCompany(employee.getCompany());
     }
 }
