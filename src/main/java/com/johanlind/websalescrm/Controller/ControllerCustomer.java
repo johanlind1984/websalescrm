@@ -7,6 +7,7 @@ import com.johanlind.websalescrm.Utility.WebSalesUtilities;
 import com.johanlind.websalescrm.entity.Customer;
 import com.johanlind.websalescrm.entity.Employee;
 import com.johanlind.websalescrm.entity.ShoppingCart;
+import com.johanlind.websalescrm.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -57,10 +58,17 @@ public class ControllerCustomer {
 
     @RequestMapping(value="/customer/updatecustomerform", method = RequestMethod.GET)
     public String updateCustomerForm(@RequestParam("id") long customerId, Model theModel, Principal principal) {
-        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
+        User user = repositoryUser.findByUserName(principal.getName());
+        theModel.addAttribute("header", WebSalesUtilities.getHeaderString(user));
+        Employee employee = repositoryEmployee.findById(user.getId()).orElse(null);
         Customer customer = repositoryCustomer.findById(customerId).orElse(null);
-        theModel.addAttribute("customer", customer);
-        return "customer/update-customer";
+
+        if(doesEmployeesCompanyOwnCustomer(employee, customer)) {
+            theModel.addAttribute("customer", customer);
+            return "customer/update-customer";
+        }
+
+        return "error/your-customer-could-not-be-found";
     }
 
 
@@ -74,15 +82,15 @@ public class ControllerCustomer {
     public String customerCard(@RequestParam("id") long customerId, Model theModel, Principal principal) {
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
         Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
-        Customer customer = repositoryCustomer.findByEmployeeAndCustomerId(employee.getId(), customerId);
+        Customer customer = repositoryCustomer.findById(customerId).orElse(null);
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
 
-        if(customer == null) {
-            return "/error/your-customer-could-not-be-found";
+        if(doesEmployeesCompanyOwnCustomer(employee, customer)) {
+            theModel.addAttribute("customer", customer);
+            return "customer/customercard";
         }
 
-        theModel.addAttribute("customer", customer);
-        return "customer/customercard";
+        return "/error/your-customer-could-not-be-found";
     }
 
     @RequestMapping("customer/customer-list")
@@ -100,5 +108,15 @@ public class ControllerCustomer {
         customer.setEmployee(employee);
         customer.setShoppingCart(shoppingCart);
         customer.setCompany(employee.getCompany());
+    }
+
+    private Boolean doesEmployeesCompanyOwnCustomer(Employee employee, Customer customer) {
+        if(customer == null) {
+            return false;
+        } else if(employee.getCompany().getId() == customer.getCompany().getId()) {
+            return true;
+        }
+
+        return false;
     }
 }

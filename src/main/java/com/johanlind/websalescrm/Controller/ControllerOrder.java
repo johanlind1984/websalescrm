@@ -62,13 +62,13 @@ public class ControllerOrder {
     @RequestMapping(value="order/deleteorder", method = RequestMethod.GET)
     public String deleteOrder(@RequestParam("id") long orderId,  Model theModel, Principal principal) {
         User user = repositoryUser.findByUserName(principal.getName());
-
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(user));
         Employee employee = repositoryEmployee.findById(user.getId()).orElse(null);
-
         Order order = repositoryOrder.findById(orderId).orElse(null);
 
-        if(doesEmployeesCompanyOwnCustomer(employee, order.getCustomer())) {
+        if(order == null) {
+            return "error/your-order-could-not-be-found";
+        } else if(doesEmployeesCompanyOwnCustomer(employee, order.getCustomer())) {
             repositoryOrder.deleteById(orderId);
             List<Order> orderList = employee.getOrderList();
             theModel.addAttribute("orderlist", orderList);
@@ -151,7 +151,9 @@ public class ControllerOrder {
     }
 
     private Boolean doesEmployeesCompanyOwnCustomer(Employee employee, Customer customer) {
-        if(employee.getCompany().getId() == customer.getCompany().getId()) {
+        if(customer == null) {
+            return false;
+        } else if(employee.getCompany().getId() == customer.getCompany().getId()) {
             return true;
         }
 
