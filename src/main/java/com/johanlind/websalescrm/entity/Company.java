@@ -20,6 +20,9 @@ public class Company extends User {
     @OneToMany(mappedBy = "company")
     private List<Customer> customerList;
 
+    @OneToMany(mappedBy = "company")
+    private List<Order> orderList;
+
     public Company() {
     }
 
@@ -45,6 +48,14 @@ public class Company extends User {
 
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
     public List<Customer> getCustomerList() {

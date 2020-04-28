@@ -24,6 +24,10 @@ public class Order {
     @JoinColumn(name="fk_employee_id")
     private Employee employee;
 
+    @ManyToOne
+    @JoinColumn(name="fk_company_id")
+    private Company company;
+
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.ALL})
     @JoinTable(
@@ -85,6 +89,14 @@ public class Order {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override
