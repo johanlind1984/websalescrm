@@ -15,7 +15,10 @@ public class Company extends User {
     private String name;
 
     @OneToMany(mappedBy = "company")
-    private List<Employee> employees;
+    private List<Employee> employeeList;
+
+    @OneToMany(mappedBy = "company")
+    private List<Customer> customerList;
 
     public Company() {
     }
@@ -36,11 +39,19 @@ public class Company extends User {
         this.name = name;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
+    public List<Customer> getCustomerList() {
+        return customerList;
+    }
+
+    public void setCustomerList(List<Customer> customerList) {
+        this.customerList = customerList;
     }
 }

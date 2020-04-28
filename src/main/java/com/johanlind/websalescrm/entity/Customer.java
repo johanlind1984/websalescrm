@@ -35,6 +35,10 @@ public class Customer {
     @JoinColumn(name="customer_employee_id")
     private Employee employee;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="customer_company_id")
+    private Company company;
+
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private ShoppingCart shoppingCart;
 
@@ -120,6 +124,14 @@ public class Customer {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public ShoppingCart getShoppingCart() {
