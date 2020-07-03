@@ -1,34 +1,74 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <title>Banansälj - säljare</title>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:fragment="header">-->
+<!--    <nav class="navbar navbar-default">-->
+<!--        <div class="container-fluid">-->
+<!--            <div class="navbar-header">-->
+<!--                <a class="navbar-brand" href="#">CLOSE EASY</a>-->
+<!--            </div>-->
+<!--            <ul class="nav navbar-nav">-->
+<!--                <li class="active"><a href="/employee/mainview/">Kunder att kontakta</a></li>-->
+<!--                <li><a href="/customer/customer-list/">Mina kunder</a></li>-->
+<!--                <li><a href="/register-customer/">Registrera ny kund</a></li>-->
+<!--                <li><a href="/order/orderlist">Mina order</a></li>-->
+<!--                <li><a href="product/product-view/">Våra produkter</a></li>-->
+<!--            </ul>-->
+<!--            <div align="right">-->
+<!--                <form th:action="@{/logout}"    >-->
+<!--                    <button type="submit" class="btn btn-warning">Logga ut</button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--</div>-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <title>LIBSYS (ADMINISTRATÖR)</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+<title>Banansälj - skala banan!</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
 <body>
 <div th:fragment="header">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">CLOSE EASY</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/employee/mainview/">Kunder att kontakta</a></li>
-                <li><a href="/customer/customer-list/">Mina kunder</a></li>
-                <li><a href="/register-customer/">Registrera ny kund</a></li>
-                <li><a href="/order/orderlist">Mina ordrar</a></li>
-                <li><a href="product/product-view/">Våra produkter</a></li>
-            </ul>
-            <div align="right">
-                <form th:action="@{/logout}"    >
-                    <button type="submit" class="btn btn-warning">Logga ut</button>
-                </form>
-            </div>
-        </div>
-    </nav>
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+        <a href="/employee/mainview/" class="w3-bar-item w3-button w3-padding-large w3-white">Kunder att kontakta</a>
+        <a href="/customer/customer-list/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Mina kunder</a>
+        <a href="/register-customer/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Registrera ny kund</a>
+        <a href="/order/orderlist" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Mina order</a>
+        <a href="/product/product-view/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Våra produkter</a>
+        <a href="/logout" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logga ut</a>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+        <a href="/employee/mainview/" class="w3-bar-item w3-button w3-padding-large">Kunder att kontakta</a>
+        <a href="/customer/customer-list/" class="w3-bar-item w3-button w3-padding-large">Mina kunder</a>
+        <a href="/register-customer/" class="w3-bar-item w3-button w3-padding-large">Registrera ny kund</a>
+        <a href="/order/orderlist" class="w3-bar-item w3-button w3-padding-large">Mina order</a>
+        <a href="/product/product-view/" class="w3-bar-item w3-button w3-padding-large">Våra produkter</a>
+        <a href="/logout" class="w3-bar-item w3-button w3-padding-large">Logga ut</a>
+    </div>
+</div>
 </div>
 </body>
 </html>
