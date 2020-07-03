@@ -18,6 +18,7 @@ import java.util.List;
 
 @Controller
 @EnableAutoConfiguration
+@RequestMapping("/order")
 public class ControllerOrder {
 
     @Autowired
@@ -35,7 +36,7 @@ public class ControllerOrder {
     @Autowired
     private RepositoryEmployee repositoryEmployee;
 
-    @RequestMapping("order/orderlist")
+    @RequestMapping("/orderlist")
     public String orderView(Model theModel, Principal principal) {
         Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
         List<Order> orderList = repositoryOrder.findByEmployee(repositoryEmployee.findById(
@@ -45,7 +46,7 @@ public class ControllerOrder {
         return "order/order-view";
     }
 
-    @RequestMapping(value="order/ordercard", method = RequestMethod.GET)
+    @RequestMapping(value="/ordercard", method = RequestMethod.GET)
     public String orderCard(@RequestParam("id") long orderId, Model theModel, Principal principal) {
         Order order = repositoryOrder.findById(orderId).orElse(null);
         Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
@@ -59,7 +60,7 @@ public class ControllerOrder {
         return "error/your-order-could-not-be-found";
     }
 
-    @RequestMapping(value="order/deleteorder", method = RequestMethod.GET)
+    @RequestMapping(value="/deleteorder", method = RequestMethod.GET)
     public String deleteOrder(@RequestParam("id") long orderId,  Model theModel, Principal principal) {
         User user = repositoryUser.findByUserName(principal.getName());
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(user));
@@ -78,7 +79,7 @@ public class ControllerOrder {
         return "error/your-order-could-not-be-found";
     }
 
-    @RequestMapping(value="order/addtoorder", method = RequestMethod.POST)
+    @RequestMapping(value="/addtoorder", method = RequestMethod.POST)
     public String addToOrder(@RequestParam("productid") long productId, @RequestParam("customerid") long customerId, Model theModel, Principal principal) {
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
 
@@ -99,7 +100,7 @@ public class ControllerOrder {
         return "error/your-order-could-not-be-found";
     }
 
-    @RequestMapping(value="order/addorderform")
+    @RequestMapping(value="/addorderform")
     public String addOrderForm(@RequestParam("customer") long customerId, Model theModel, Principal principal) {
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
 
@@ -118,7 +119,7 @@ public class ControllerOrder {
         return "error/your-order-could-not-be-found";
     }
 
-    @RequestMapping(value="order/finalizeorder", method = RequestMethod.POST)
+    @RequestMapping(value="/finalizeorder", method = RequestMethod.POST)
     public ModelAndView finalizeOrder(@RequestParam("customerid") long customerId, Model theModel, Principal principal) {
         Customer customer = repositoryCustomer.findById(customerId).orElse(null);
         Employee employee = repositoryEmployee.findById(repositoryUser.findByUserName(principal.getName()).getId()).orElse(null);
@@ -142,7 +143,7 @@ public class ControllerOrder {
         return new ModelAndView("redirect:/error/your-order-could-not-be-found");
     }
 
-    @RequestMapping(value="order/orderconfirmed")
+    @RequestMapping(value="/orderconfirmed")
     public String confirmOrder(@ModelAttribute("orderadded") Order order, @ModelAttribute("customer") Customer customer, Model theModel, Principal principal) {
         theModel.addAttribute("header", WebSalesUtilities.getHeaderString(repositoryUser.findByUserName(principal.getName())));
         customer.addOrder(order);

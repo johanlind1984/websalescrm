@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <title>Banansälj - skala banan!</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,8 +12,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
 </style>
-<!--<body bgcolor="#ffeb3b">-->
 <body>
+
+<!-- Navbar -->
 <div class="w3-top">
     <div class="w3-bar w3-black w3-card w3-left-align w3-large">
         <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
@@ -34,27 +35,48 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
     </div>
 </div>
-<div class="w3-row-padding w3-padding-64 w3-container w3-yellow w3-center">
-    <h1>Registerera dig som ny användare</h1>
 
-    <form th:object="${user}" th:action="@{saveuser}" method="post" class="form-horizontal">
-        <div class="form-group">
-        <label class="control-label col-sm-2">Användarnamn: </label>
-            <input type="text" th:field="*{userName}" th:value="${user.userName}" class="form-control" required>
+<!-- Header -->
+<header class="w3-container w3-yellow w3-center" style="padding:128px 16px">
+    <h1 class="w3-margin w3-jumbo">Banansälj</h1>
+    <p class="w3-xlarge">Lika lätt som att skala en banan!</p>
+    <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Börja nu</button>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+        <div class="w3-twothird">
+            <h1>Gratis och enkelt att använda</h1>
+            <h5 class="w3-padding-32">Om du är en person som gärna håller saker och ting enkelt utan krusiduller så är banansälj något för dig!
+            Inga knepiga menyer och avancerade funktioner som tar lång tid att lära sig. Med banansälj lägger du enkelt upp dina produkter, kunder
+            och order. </h5>
+
+            <p class="w3-text-grey">Även om vi vill hålla systemet så enkelt som möjligt måste vissa funktioner finnas i ett sälj CRM. En av de
+                viktigaste detaljerna är att förenkla kontakten med kund. Med Banansälj kan du själv skriva kommentarer och sätta nästa datum då du skall
+                kontakta kunden. Alla moment i banansäj skall vara minimalistiska. Registrera dig, en kund, en produkt eller en order skall inte vara mer
+                än några klick. Framför allt skall INTE du som kund behöva fylla i extra fält eller ge ut mer information om dig, dina kunder eller
+                produkter än vad somär nödvändigt för att du skall kunna sälja.
+            </p>
         </div>
-        <!--    <p align="center">Email: <input type="text" th:field="*{phoneNumber}" th:value="${user.email}" required/></p>-->
-        <div class="form-group">
-        <label class="control-label col-sm-2">Lösenord: </label>
-            <input type="password" th:field="*{password}" th:value="${user.password}" class="form-control" required>
+
+        <div class="w3-third w3-center">
+            <i><img src="/img/landingpage/banana.jpg" class="rounded float-left"> </i>
         </div>
-        <div class="form-group">
-            <input type="submit" class="w3-button w3-black w3-padding-large w3-large w3-margin-top" value="Registrera">
-        </div>
-    </form>
+    </div>
 </div>
-<div class="w3-container w3-white w3-center">
-<img src="/img/landingpage/banana.jpg">
-</div>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
 </body>
-
 </html>

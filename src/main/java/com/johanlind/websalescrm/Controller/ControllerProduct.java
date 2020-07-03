@@ -15,43 +15,44 @@ import java.util.List;
 
 @Controller
 @EnableAutoConfiguration
+@RequestMapping("/product")
 public class ControllerProduct {
 
     @Autowired
     private RepositoryProduct repositoryProduct;
 
-    @RequestMapping("/addproduct")
+    @RequestMapping("/crud/addproduct")
     public String addProduct(Model theModel) {
         theModel.addAttribute("productadded", new Product());
-        return "add-product";
+        return "product/crud/add-product";
     }
 
-    @RequestMapping("/productconfirmed")
+    @RequestMapping("/crud/productconfirmed")
     public String confirmProduct(@ModelAttribute("productadded") Product product) {
         repositoryProduct.save(product);
-        return "confirmation-product-added";
+        return "product/crud/confirmation-product-added";
     }
 
     @RequestMapping("/productlist")
     public String listProducts(Model theModel) {
         List<Product> productList = repositoryProduct.findAll();
         theModel.addAttribute("productlist", productList);
-        return "product-view";
+        return "product/list/product-list";
     }
 
-    @RequestMapping(value="/deleteproduct", method = RequestMethod.GET)
+    @RequestMapping(value="/crud/deleteproduct", method = RequestMethod.GET)
     public String deleteProduct(@RequestParam("id") long productId, Model theModel) {
         repositoryProduct.deleteById(productId);
         List<Product> productList = repositoryProduct.findAll();
         theModel.addAttribute("productlist", productList);
-        return "product-view";
+        return "product/list/product-list";
     }
 
-    @RequestMapping(value="/updateproductform", method = RequestMethod.GET)
+    @RequestMapping(value="/crud/updateproductform", method = RequestMethod.GET)
     public String updateProductForm(@RequestParam("id") long productId, Model theModel) {
         Product product = repositoryProduct.findById(productId).orElse(null);
         theModel.addAttribute("product", product);
-        return "update-product";
+        return "product/crud/update-product";
     }
 
 
@@ -60,6 +61,6 @@ public class ControllerProduct {
         repositoryProduct.save(product);
         List<Product> productList = repositoryProduct.findAll();
         theModel.addAttribute("productlist", productList);
-        return "product-view";
+        return "product/list/product-list";
     }
 }
