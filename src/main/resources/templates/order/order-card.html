@@ -16,8 +16,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <body bgcolor="#ffeb3b">
 <header th:insert="${header}:: header"> </header>
-
-<h1 align="center">Order Card</h1>
+<br>
+<br>
+<br>
+<h1 align="center">Orderkort</h1>
 <br><br><br>
 <h1 align="center" th:text="'Order ID: ' + ${order.id}"></h1>
 <h2 align="center" th:text="'Customer ID: ' + ${order.customer.customerId}"></h2>
@@ -32,6 +34,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         <td th:text="${product.price}"/>
     </tr>
 </table>
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
 </body>
 
 </html>

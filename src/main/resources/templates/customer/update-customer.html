@@ -16,6 +16,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <body bgcolor="#ffeb3b">
 <header th:insert="${header}:: header"></header>
+<br>
+<br>
+<br>
+<h1 align="center">Uppdatera kund</h1>
+
 
 <form th:object="${customer}" th:action="@{/customer/updatecustomer}" method="post">
     <div class="form-group">
@@ -33,6 +38,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     </div>
 </form>
 
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
 </body>
 
 </html>

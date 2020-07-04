@@ -13,8 +13,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
 </style>
 <body bgcolor="#ffeb3b">
+
 <header th:insert="${header}:: header"> </header>
-<h2 align="center">Add Product</h2>
+<br>
+<br>
+<br>
+<h1 align="center">Lägg till produkt</h1>
 
 <form th:object="${productadded}" th:action="@{/productconfirmed}" method="post">
     <p align="center">Name: <input type="text" th:field="*{name}"/></p>
@@ -22,6 +26,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <p align="center"><input type="submit" value="Submit"/></p>
 </form>
 
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
 </body>
 
 </html>

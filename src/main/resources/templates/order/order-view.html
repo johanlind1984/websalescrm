@@ -15,8 +15,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 
 <body bgcolor="#ffeb3b">
-<header th:insert="${header}:: header"> </header>
-
+<header th:insert="${header}:: header"></header>
+<br>
+<br>
+<br>
+<div class="container">
+<h1 align="center">Dina Order</h1>
 <table style="width:75%" align="center" class="table">
     <th>Order ID </th>
     <th>Kund ID</th>
@@ -28,8 +32,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         <td th:text="${order.customer.customerId}"/>
         <td th:text="${order}"/>
         <td>
-            <a th:href="@{/order/ordercard(id=${order.orderId})}"/>
-            <span>Orderinformation</span>
+            <a th:href="@{/order/ordercard(id=${order.orderId})}">Orderinformation</a>
         </td>
         <td align="center">
             <a th:href="@{/order/deleteorder(id=${order.orderId})}"/>
@@ -37,6 +40,18 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         </td>
     </tr>
 </table>
+</div>
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
 </body>
 
 </html>

@@ -16,20 +16,45 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <body bgcolor="#ffeb3b">
 <header th:insert="${header}:: header"></header>
+<br>
+<br>
+<br>
+<div class="container">
+<h1 align="center">Lägg till ny kund</h1>
 
 <form th:object="${customeradded}" th:action="@{/register-customer/save-customer}" method="post">
     <div class="form-group">
-        <label>Företag </label>
-        <input class="form-control" type="text" th:field="*{name}"/>
-        <label>Telefonnummer </label>
-        <input class="form-control" type="text" th:field="*{phoneNumber}"/>
-        <label>E-post </label>
-        <input class="form-control" type="text" th:field="*{email}"/>
-        <label>Datum för nästa kontakt</label>
-        <input class="form-control" type="date" th:field="*{nextContactDate}"/>
+        <label for="company">Företag</label>
+        <input id="company" class="form-control-lg" type="text" th:field="*{name}"/>
+    </div>
+    <div class="form-group">
+        <label for="phone">Telefonnummer</label>
+        <input id="phone" class="form-control-lg" type="text" th:field="*{phoneNumber}"/>
+    </div>
+    <div class="form-group">
+        <label for="email">E-post</label>
+        <input id="email" class="form-control-lg" type="text" th:field="*{email}"/>
+    </div>
+    <div class="form-group">
+        <label for="date">Datum för nästa kontakt</label>
+        <input id="date" class="form-control-lg" type="date" th:field="*{nextContactDate}"/>
+    </div>
+    <div class="form-group">
         <input type="submit" value="Submit" class="btn btn-primary"/>
     </div>
 </form>
+</div>
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
 
 </body>
 
