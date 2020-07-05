@@ -7,33 +7,63 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
+
+.table td {
+   text-align: center;
+}
+
+.table th {
+   text-align: center;
+}
+
+body {
+    background-color: #ffeb3b;
+}
+
 </style>
 
 
 <body bgcolor="#ffeb3b">
-<header th:insert="${header}:: header"> </header>
+<header th:insert="${header}:: header"></header>
 <br>
 <br>
 <br>
 <h1 align="center">Orderkort</h1>
-<br><br><br>
-<h1 align="center" th:text="'Order ID: ' + ${order.id}"></h1>
-<h2 align="center" th:text="'Customer ID: ' + ${order.customer.customerId}"></h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h4 align="center" th:text="'Customer: ' + ${order.customer.name}"></h4>
+        </div>
+        <div class="col">
+            <h4 align="center" th:text="'Customer ID: ' + ${order.customer.customerId}"></h4>
+        </div>
+        <div class="col">
+            <h4 align="center" th:text="'Order ID: ' + ${order.id}"></h4>
+        </div>
+    </div>
+</div>
 
-<table style="width:75%" align="center" class="table">
-    <th>Produkt Id</th>
-    <th>Produktnamn</th>
-    <th>Pris</th>
-    <tr th:each="product: ${order.productsOrdered}">
-        <td th:text="${product.id}"/>
-        <td th:text="${product.name}"/>
-        <td th:text="${product.price}"/>
-    </tr>
-</table>
+<div class="container">
+    <table align="center" class="table table-dark">
+        <thead>
+        <th scope="col">Produkt Id</th>
+        <th scope="col">Produktnamn</th>
+        <th scope="col">Pris</th>
+        </thead>
+        <tr th:each="product: ${order.productsOrdered}">
+            <th scope="row" th:text="${product.id}"/>
+            <td th:text="${product.name}"/>
+            <td th:text="${product.price}"/>
+        </tr>
+    </table>
+</div>
 <script>
 // Used to toggle the menu on small screens when clicking on the menu button
 function myFunction() {
@@ -44,6 +74,8 @@ function myFunction() {
     x.className = x.className.replace(" w3-show", "");
   }
 }
+
+
 </script>
 </body>
 

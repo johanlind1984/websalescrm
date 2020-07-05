@@ -7,10 +7,24 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
+
+.table td {
+   text-align: center;
+}
+
+.table th {
+   text-align: center;
+}
+
+body {
+    background-color: #ffeb3b;
+}
+
 </style>
 
 
@@ -21,14 +35,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <br>
 <div class="container">
 <h1 align="center">Dina Order</h1>
-<table style="width:75%" align="center" class="table">
-    <th>Order ID </th>
-    <th>Kund ID</th>
-    <th>Order Sammanfattning</th>
-    <th>Detaljer</th>
-    <th>Åtgärd</th>
+<table align="center" class="table table-dark">
+    <thead>
+    <th scope="col">Order ID </th>
+    <th scope="col">Kund ID</th>
+    <th scope="col">Order Sammanfattning</th>
+    <th scope="col">Detaljer</th>
+    <th scope="col">Åtgärd</th>
+    </thead>
     <tr th:each="order: ${orderlist}">
-        <td th:text="${order.orderId}"/>
+        <th scope="row" th:text="${order.orderId}"/>
         <td th:text="${order.customer.customerId}"/>
         <td th:text="${order}"/>
         <td>
