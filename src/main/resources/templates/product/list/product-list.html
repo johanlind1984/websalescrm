@@ -7,23 +7,47 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
+
+.table td {
+   text-align: center;
+}
+
+.table th {
+   text-align: center;
+}
+
+body {
+    background-color: #ffeb3b;
+}
+
 </style>
+
 <body bgcolor="#ffeb3b">
 <header th:insert="${header}:: header"> </header>
+<br>
+<br>
+<br>
 
-    <table style="width:75%" align="center">
-        <th>Produkt ID</th>
-        <th>Produktnamn</th>
-        <th>Pris</th>
+
+<div class="container">
+    <h1 align="center">Produkter</h1>
+    <table align="center" class="table table-dark">
+        <thead>
+        <th scope="col">Produkt ID</th>
+        <th scope="col">Produktnamn</th>
+        <th scope="col">Pris</th>
+        </thead>
 <!--        <th>Action</th>-->
         <tr th:each="product: ${productlist}">
-            <td align="center" th:text="${product.id}"/>
-            <td align="center" th:text="${product.name}"/>
-            <td align="center" th:text="${product.price}" />
+            <th scope="row" th:text="${product.id}"/>
+            <td th:text="${product.name}"/>
+            <td th:text="${product.price}" />
 <!--            <td align="center">-->
 <!--                <a th:href="@{/deleteproduct(id=${product.id})}">-->
 <!--                    <span>Delete / </span>-->
@@ -38,6 +62,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 
 
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
 </body>
-
 </html>

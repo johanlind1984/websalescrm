@@ -7,18 +7,46 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
+
+.table td {
+   text-align: center;
+}
+
+.table th {
+   text-align: center;
+}
+
+body {
+    background-color: #ffeb3b;
+}
+
 </style>
 
 
 <body bgcolor="#ffeb3b">
 <header th:insert="${header}:: header"> </header>
+<br>
+<br>
+<br>
+<h1 align="center">Den kund du försökte nå finns inte eller så har du inte behörighet till kunden</h1>
 
-<h2 align="center">Den kund du försökte nå finns inte eller så har du inte behörighet till kunden</h2>
-
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
 </body>
 
 </html>
